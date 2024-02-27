@@ -1,0 +1,43 @@
+/*--------------------------------------------------------------
+  # Page Title & Breadcrumbs
+  --------------------------------------------------------------*/
+  .page-title {
+    color: var(--default-color);
+    background-color: var(--background-color);
+  }
+  
+  .page-title .heading {
+    padding: 80px 0;
+    border-top: 1px solid rgba(var(--default-color-rgb), 0.1);
+  }
+  
+  .page-title .heading h1 {
+    font-size: 38px;
+    font-weight: 700;
+    color: var(--heading-color);
+  }
+  
+  .page-title nav {
+    background-color: rgba(var(--default-color-rgb), 0.05);
+    padding: 20px 0;
+  }
+  
+  .page-title nav ol {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  
+  .page-title nav ol li+li {
+    padding-left: 10px;
+  }
+  
+  .page-title nav ol li+li::before {
+    content: "/";
+    display: inline-block;
+    padding-right: 10px;
+    color: rgba(var(--default-color-rgb), 0.3);
+  }

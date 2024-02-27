@@ -1,0 +1,39 @@
+{% set commentaires = this.commentaires %}
+<div class="blog-comments">
+    <h4 class="comments-count">{{ commentaires|length }} Comments</h4>
+    {% for commentaire in commentaires %}
+        <div id="comment-{{ commentaire.id }}" class="comment">
+            <div class="d-flex">
+                <div class="comment-img"><img src="{{ commentaire.auteur.avatar }}" alt=""></div>
+                <div>
+                    <h5>
+                        <a href="#ajout-commentaire" data-reply data-id="{{commentaire.id}}">{{ commentaire.auteur.username }}</a> 
+                        <a href="#ajout-commentaire" data-reply data-id="{{commentaire.id}}" class="reply"><i class="bi bi-reply-fill"></i> Répondre</a>&nbsp;&nbsp;
+                        <a class="edit" href="{{commentaire.id}}"><i class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp;&nbsp;
+                        <a class="remove" href=""><i class="fa fa-trash" aria-hidden="true"></i></a>
+                    </h5>
+                    <time datetime="{{ commentaire.createdAt|date('Y-m-d') }}">{{ commentaire.createdAt|format_datetime(locale='fr',pattern="dd MMMM YYYY") }}</time>
+                    <p>
+                        {{ commentaire.contenu }}
+                    </p>
+                </div>
+            </div>
+            {% for reply in commentaire.replies %}
+                <div id="comment-reply-{{ commentaire.id }}" class="comment comment-reply">
+                    <div class="d-flex">
+                        <div class="comment-img"><img src="{{ reply.auteur.avatar }}" alt=""></div>
+                        <div>
+                            <h5><a href="">{{ reply.auteur.username }}</a> </h5>
+                            <time datetime="{{ reply.createdAt|date('Y-m-d') }}">{{ reply.createdAt|format_datetime(locale='fr',pattern="dd MMMM YYYY") }}</time>
+                            <p>
+                                {{ reply.contenu }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+    {{ component('blogCommentairesForm') }}
+</div>
+

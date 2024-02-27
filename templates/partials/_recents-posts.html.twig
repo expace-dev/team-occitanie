@@ -1,0 +1,32 @@
+<section id="recent-posts" class="recent-posts">
+  <div class="container section-title" data-aos="fade-up">
+    <h2>Dernières publications</h2>
+    <p>Prenez connaissance de nos dernières publications</p>
+  </div>
+  <div class="container">
+    <div class="row gy-4">
+      {% for article in articles %}
+        <div class="col-xl-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+          <article>
+            <div class="post-img">
+              <img src="{{ article.img }}" alt="" class="img-fluid">
+            </div>
+            <p class="post-category">{{ article.categories.nom }}</p>
+            <h2 class="title">
+              <a href="blog-details.html">{{ article.titre }}</a>
+            </h2>
+            <div class="d-flex align-items-center">
+              <img src="{{ article.auteur.avatar }}" alt="" class="img-fluid post-author-img flex-shrink-0">
+              <div class="post-meta">
+                <p class="post-author">{{ article.auteur.username }}</p>
+                <p class="post-date">
+                  <time datetime="{{ article.date|date }}">{{ article.date|format_datetime(locale='fr',pattern="dd MMMM YYYY") }}</time>
+                </p>
+              </div>
+            </div>
+          </article>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

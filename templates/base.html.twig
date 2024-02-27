@@ -2,16 +2,67 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+        <meta content="{% block descrition %}{% endblock %}" name="description">
+        <meta content="{% block keywords %}{% endblock %}" name="keywords">
+
+        <!-- Favicons -->
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com" rel="preconnect">
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+        <script src="https://kit.fontawesome.com/99b1503dd1.js" crossorigin="anonymous"></script>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        <script src="/javascripts/jquery.min.js"></script>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/super-build/ckeditor.js"></script>
+        <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/super-build/translations/fr.js"></script>
+
+
+        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
         {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+            {{ encore_entry_link_tags('notyf') }}
         {% endblock %}
 
         {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
+            {{ encore_entry_script_tags('app') }}
+            {{ encore_entry_script_tags('notyf') }}
         {% endblock %}
     </head>
-    <body>
-        {% block body %}{% endblock %}
+    {% if app.request.get('_route') == "app_home" %}
+        {% set page = 'index-page' %}
+    {% else %}
+        {% set page = 'blog-page' %}
+    {% endif %}
+    <body class="{{ page }}" data-bs-spy="scroll" data-bs-target="#navmenu">
+        {% include "partials/_header.html.twig" %}
+        <main id="main">
+            {% block body %}{% endblock %}
+        </main>
+        {% include "partials/_footer.html.twig" %}
+        <!-- Scroll Top Button -->
+        <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center">
+            <i class="bi bi-arrow-up-short"></i>
+        </a>
+        <!-- Preloader -->
+        <div id="preloader">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        {% include '_notyf.html.twig' %}
+        <!-- Vendor JS Files -->
+        <script src="/javascripts/bootstrap.bundle.min.js"></script>
+        <script src="/javascripts/glightbox.min.js"></script>
+        <script src="/javascripts/purecounter_vanilla.js"></script>
+        <script src="/javascripts/isotope.pkgd.min.js"></script>
+        <script src="/javascripts/swiper-bundle.min.js"></script>
+        <script src="/javascripts/aos.js"></script>
+        <!-- Template Main JS File -->
+        <script src="/javascripts/main.js"></script>
     </body>
 </html>

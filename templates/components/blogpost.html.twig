@@ -1,0 +1,26 @@
+{% set article = this.blogpost %}
+<article class="entry">
+    <div class="entry-img">
+        <img src="{{ article.img }}" alt="" class="img-fluid">
+    </div>
+    <h2 class="entry-title">
+        <a href="{{ path('app_blog_show', {'slug': article.slug}) }}">{{ article.titre }}</a>
+    </h2>
+    <div class="entry-meta">
+        <ul>
+            <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="">{{ article.auteur.username }}</a></li>
+            <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href=""><time datetime="{{ article.date|date }}">{{ article.date|format_datetime(locale='fr',pattern="dd MMMM YYYY") }}</time></a></li>
+            <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="#ajout-commentaire">{{ article.commentaires|length }} Commentaires</a></li>
+        </ul>
+    </div>
+    <div class="entry-content">
+        {% if app.request.get('_route') != 'app_blog_show' %}
+            <p>{{ article.introduction|raw }}</p>
+            <div class="read-more">
+                <a href="{{ path('app_blog_show', {'slug': article.slug}) }}" data-turbo="false">Lire la suite</a>
+            </div>
+        {% else %}
+            <p>{{ article.contenu|raw }}</p>
+        {% endif %}
+    </div>
+</article>

@@ -1,0 +1,26 @@
+<section id="team" class="testimonials">
+  <div class="container" data-aos="fade-up">
+    <header class="section-title">
+      <h2>Présentation de la Team</h2>
+      <p>Présentation des membres de la Team au grand complet</p>
+    </header>
+    <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="200">
+      <div class="swiper-wrapper">
+        {% for membre in membres %}
+          <div class="swiper-slide">
+            <div class="testimonial-item">
+              <p>
+                {{ membre.description }}
+              </p>
+              <div class="profile mt-auto">
+                <img src="{{ membre.avatar }}" class="testimonial-img" alt="">
+                <h3>{{ membre.username }}</h3>
+                <h4>{{ membre.poste }}</h4>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>

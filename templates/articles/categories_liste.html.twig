@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User index{% endblock %}
+{% set pageCount = categories.pages %}
+{% set currentPage = categories.page %}
+{% block body %}
+    <section class="breadcrumbs">
+        <div class="container">
+            <ol>
+                <li><a href="index.html">Home</a></li>
+                <li>Blog</li>
+            </ol>
+            <h2>Blog</h2>
+        </div>
+    </section><!-- End Breadcrumbs -->
+    <section>
+        <div class="container">
+            <h2>Liste des catégories</h2>
+            <p>
+                <a href="{{ path('app_admin_categories_new') }}" class="btn btn-success">Ajouter une catégorie</a>
+            </p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Catégorie</th>
+                        <th>Catégorie principale</th>
+                        <th>actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for categorie in categories.data %}
+                        <tr>
+                            <td>{{ categorie.nom }}</td>
+                            <td>
+                                {% if categorie.parent %}
+                                    Non
+                                {% else %}
+                                    Oui
+                                {% endif %}
+                            </td>
+                            <td style="width:80px">
+                                &nbsp;&nbsp;<a class="edit" href="{{ path('app_admin_categories_edit', {'id': categorie.id}) }}"><i   class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp;&nbsp;
+                                <a class="remove" href="{{ path('app_admin_categories_delete', {'id': categorie.id}) }}"><i   class="fa fa-trash" aria-hidden="true"></i></a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="10">no records found</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% include "partials/_pagination.html.twig" %}
+        </div>
+    </section>
+    <script>
+        $(document).ready( function () {
+            $(".remove").click(function (event) {
+                event.preventDefault();
+                url = $(this).attr('href');
+                Swal.fire({
+                    text: "Voulez vous vraiment supprimer cette catégorie ?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#82A800',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'supprimer'
+                }).then((result) => {
+                    if(result.isConfirmed) {
+                        document.location.href = url;
+                    }
+                })
+            });
+        });
+    </script>
+{% endblock %}

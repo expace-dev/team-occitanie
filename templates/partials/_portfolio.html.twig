@@ -1,0 +1,19 @@
+<section id="portfolio" class="portfolio">
+  <div class="container" data-aos="fade-up">
+    <div class="section-title">
+      <h2>Nos photos</h2>
+      <p>Découvrez les dernières photos prises par les membres de la Team lors de nos sessions de jeu</p>
+    </div>
+    <div class="portfolio-isotope" data-portfolio-filter="*" data-portfolio-layout="masonry" data-portfolio-sort="original-order" data-aos="fade-up" data-aos-delay="100">
+      <div class="row gy-4 portfolio-container">
+        {% for photo in photos %}
+          <div class="col-xl-4 col-md-6 portfolio-item filter-product">
+            <div class="portfolio-wrap">
+              <a href="{{ photo.url }}" data-gallery="portfolio-gallery-app" class="glightbox"><img src="{{ photo.url }}" class="img-fluid" alt=""></a>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>

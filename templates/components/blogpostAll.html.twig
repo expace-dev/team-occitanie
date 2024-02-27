@@ -1,0 +1,35 @@
+{% for article in this.allBlogpost.data %}
+    {{ component('blogpost', {'id': article.id}) }}
+{% endfor %}
+{% set pages = this.allBlogpost.pages %}
+{% set currentPage = this.allBlogpost.page %}
+{% if pages > 1 %}
+    <div class="blog-pagination">
+        <ul class="justify-content-center">
+            {% if currentPage > 1 %}
+                <li><a href="{{ path('app_blog_index', {page: currentPage - 1}) }}">&laquo;</a></li>
+            {% else %}
+                <li><a href="{{ path('app_blog_index', {page: currentPage}) }}">&laquo;</a></li>
+            {% endif %}
+            {% set pageSupp = currentPage +4 %}
+            {% if pages > 5 and currentPage < pages %}
+                {% for page in currentPage..pageSupp %}
+                    {% if page <= pages %}
+                        <li class="{{ (page == currentPage) ? 'active' : '' }}">
+                            <a href="{{ path('app_blog_index', {page: page }) }}">{{ page }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <li class="active">
+                    <a href="{{ path('app_blog_index', {page: pages }) }}">{{ pages  }}</a>
+                </li>
+            {% endif %}
+            {% if currentPage < pages %}
+                <li><a href="{{ path('app_blog_index', {page: currentPage + 1}) }}">&raquo;</a></li>
+            {% else %}
+                <li><a href="{{ path('app_blog_index', {page: currentPage}) }}">&raquo;</a></li>    
+            {% endif %}
+        </ul>
+    </div>
+{% endif %}

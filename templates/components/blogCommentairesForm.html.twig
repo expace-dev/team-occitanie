@@ -1,0 +1,20 @@
+<div {{ attributes }}>
+  <div id="ajout-commentaire" class="reply-form">
+    <h4 class="mb-5">Laisser un commentaire</h4>
+    {% if app.user %}
+      {{ form_start(form, {attr: {'data-model': '*'}}) }}
+        <div class="row">
+          <div class="col form-group">
+            {{ form_widget(form.contenu) }}
+            {{ form_errors(form.contenu) }}
+          </div>
+        </div>
+        <button type="submit" class="btn-secondary">Publier votre commentaire</button>
+      {{ form_end(form) }}
+    {% else %}
+      <div class="col-12 text-center">
+        <a href="{{ path('app_login') }}" class="btn btn-success mt-5 mb-5">Veuillez vous connecter</a>
+      </div>
+    {% endif %}
+  </div>
+</div>

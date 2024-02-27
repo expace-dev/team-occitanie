@@ -1,0 +1,111 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User index{% endblock %}
+{% set pageCount = articles.pages %}
+{% set currentPage = articles.page %}
+{% block body %}
+    <section class="breadcrumbs">
+        <div class="container">
+            <ol>
+                <li><a href="index.html">Home</a></li>
+                <li>Blog</li>
+            </ol>
+            <h2>Blog</h2>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <h2>Liste des publications</h2>
+            <p>
+                <a href="{{ path('app_admin_categories_index') }}" class="btn btn-success">Gérer les catégories</a>
+            </p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Titre</th>
+                        <th>Auteur</th>
+                        <th>Catégorie</th>
+                        <th>Date de publication</th>
+                        <th style="width:90px;">actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for article in articles.data %}
+                        <tr>
+                            <td>{{ article.titre }}</td>
+                            <td>{{ article.auteur.username }}</td>
+                            <td>{{ article.categories.nom }}</td>
+                            <td>{{ article.date|format_datetime(locale='fr',pattern="d MMMM YYYY") }}</td>
+                            <td>
+                                &nbsp;&nbsp;<a class="edit" href="{{ path('app_articles_edit', {'id': article.id}) }}"><i   class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp;&nbsp;
+                                {% if article.active == false %}
+                                    <a class="powerOff" href="{{ path('app_publi_activate', {'id': article.id}) }}"><i   class="fa fa-power-off" aria-hidden="true"></i></a>&nbsp;&nbsp;
+                                {% else %}
+                                    <a class="powerOn" href="{{ path('app_publi_activate', {'id': article.id}) }}"><i   class="fa fa-power-off" aria-hidden="true"></i></a>&nbsp;&nbsp;
+                                {% endif %}
+                                <a class="remove" href="{{ path('app_publi_delete', {'id': article.id}) }}"><i   class="fa fa-trash" aria-hidden="true"></i></a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="10">no records found</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% include "partials/_pagination.html.twig" %}
+        </div>
+    </section>
+    <script>
+        $(document).ready( function () {
+            $(".remove").click(function (event) {
+                event.preventDefault();
+                url = $(this).attr('href');
+                Swal.fire({
+                    text: "Voulez vous vraiment supprimer cette publication ?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#82A800',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Supprimer'
+                }).then((result) => {
+                    if(result.isConfirmed) {
+                        document.location.href = url;
+                    }
+                })
+            });
+            $(".powerOff").click(function (event) {
+                event.preventDefault();
+                url = $(this).attr('href');
+                Swal.fire({
+                    text: "Voulez vous activer cette publication ?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#82A800',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Activer'
+                }).then((result) => {
+                    if(result.isConfirmed) {
+                        document.location.href = url;
+                    }
+                })
+            });
+            $(".powerOn").click(function (event) {
+                event.preventDefault();
+                url = $(this).attr('href');
+                Swal.fire({
+                    text: "Voulez vous désactiver cette publication ?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#82A800',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Désactiver'
+                }).then((result) => {
+                    if(result.isConfirmed) {
+                        document.location.href = url;
+                    }
+                })
+            });
+        });
+    </script>
+{% endblock %}

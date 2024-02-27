@@ -1,0 +1,121 @@
+ /*--------------------------------------------------------------
+  # Global Header
+  --------------------------------------------------------------*/
+  .header {
+    --background-color: #ffffff;
+    color: var(--default-color);
+    background-color: var(--background-color);
+    padding: 15px 0;
+    transition: all 0.5s;
+    z-index: 997;
+  }
+  
+  .header .logo img {
+    max-height: 40px;
+    margin-right: 6px;
+  }
+  
+  .header .logo h1 {
+    font-size: 24px;
+    margin: 0;
+    font-weight: 600;
+    color: var(--heading-color);
+  }
+  
+  .header .logo span {
+    color: var(--accent-color);
+    font-size: 24px;
+    font-weight: 600;
+    padding-left: 3px;
+  }
+  
+  .header .btn-getstarted,
+  .header .btn-getstarted:focus {
+    color: var(--contrast-color);
+    background: var(--accent-color);
+    font-size: 14px;
+    padding: 8px 26px;
+    margin: 0;
+    border-radius: 4px;
+    transition: 0.3s;
+  }
+  
+  .header .btn-getstarted:hover,
+  .header .btn-getstarted:focus:hover {
+    color: var(--contrast-color);
+    background: rgba(var(--accent-color-rgb), 0.85);
+  }
+  
+  @media (max-width: 1200px) {
+    .header .logo {
+      order: 1;
+    }
+  
+    .header .btn-getstarted {
+      order: 2;
+      margin: 0 15px 0 0;
+      padding: 6px 20px;
+    }
+  
+    .header .navmenu {
+      order: 3;
+    }
+  }
+  
+  /* Global Header on page scroll
+  ------------------------------*/
+  .scrolled .header {
+    --background-color: #ffffff;
+    --heading-color: #444444;
+    --nav-color: #444444;
+    --nav-hover-color: #e84545;
+    box-shadow: 0 0 30px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Global Scroll Margin Top
+  ------------------------------*/
+  section {
+    scroll-margin-top: 90px;
+  }
+  
+  @media (max-width: 1199px) {
+    section {
+      scroll-margin-top: 66px;
+    }
+  }
+  
+  /* Home Page Custom Header
+  ------------------------------*/
+  .index-page .header {
+    --background-color: rgba(255, 255, 255, 0);
+    --heading-color: #ffffff;
+    --nav-color: rgba(255, 255, 255, 0.515);
+    --nav-hover-color: #ffffff;
+  }
+  
+  /* Home Page Custom Header on page scroll
+  ------------------------------*/
+  .index-page.scrolled .header {
+    --background-color: #82A800;;
+    --heading-color: #fff;
+    --nav-color: #fff;
+    --nav-hover-color: #212529;
+  }
+
+  /* Home Page Custom Header
+  ------------------------------*/
+  .blog-page .header {
+    --background-color: #82A800;;
+    --heading-color: #fff;
+    --nav-color: #fff;
+    --nav-hover-color: #212529;
+  }
+  
+  /* Home Page Custom Header on page scroll
+  ------------------------------*/
+  .blog-page.scrolled .header {
+    --background-color: #82A800;;
+    --heading-color: #fff;
+    --nav-color: #fff;
+    --nav-hover-color: #212529;
+  }

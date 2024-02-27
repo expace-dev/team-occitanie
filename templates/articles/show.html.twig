@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Articles{% endblock %}
+
+{% block body %}
+  <section class="breadcrumbs">
+    <div class="container">
+      <ol>
+        <li><a href="index.html">Home</a></li>
+        <li>Blog</li>
+      </ol>
+      <h2>Blog</h2>
+    </div>
+  </section>
+  <section id="blog" class="blog mt-5 mb-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 entries">
+          {{ component('blogpost', {'id': article.id}) }}
+          <div class="blog-author d-flex align-items-center">
+            <img src="{{ article.auteur.avatar }}" class="rounded-circle float-left" alt="">
+            <div>
+              <h4>{{ article.auteur.username }}</h4>
+              <div class="social-links">
+                <a href="https://twitters.com/#"><i class="bi bi-twitter"></i></a>
+                <a href="https://facebook.com/#"><i class="bi bi-facebook"></i></a>
+                <a href="https://instagram.com/#"><i class="biu bi-instagram"></i></a>
+              </div>
+              <p>{{ article.auteur.description }}</p>
+            </div>
+          </div><!-- End blog author bio -->
+          <div data-turbo="false">
+            {{component('blogCommentaires', {'id': article.id})}}
+          </div>
+        </div><!-- End blog entries list -->
+        <div class="col-lg-4">
+          <div class="sidebar">
+            <h3 class="sidebar-title">Rechercher</h3>
+            <div class="sidebar-item search-form">
+              <form action="">
+                <input type="text" class="form-control">
+                <button type="submit"><i class="bi bi-search"></i></button>
+              </form>
+            </div><!-- End sidebar search formn-->
+            {{component('blogCategories')}}
+            {{component('blogpostRecent')}}
+          </div><!-- End sidebar -->
+        </div><!-- End blog sidebar -->
+      </div>
+    </div>
+  </section><!-- End Blog Single Section -->
+{% endblock %}

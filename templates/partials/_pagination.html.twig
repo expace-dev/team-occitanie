@@ -1,0 +1,52 @@
+{% set pathRoute = app.request.attributes.get('_route') %}     
+    {% if pageCount > 1 %}
+    <!-- Pagination -->
+    {# Le nombre de pages à afficher autour de la page actuelle est de 2 ou une valeur minimale calculée #}
+    {% set defaultPageQuantityAround = 2 %}
+    {# Vleur minimum #}
+    {% set minimumPageQuantityAround = min(currentPage - 1, pageCount - currentPage) %}
+    {# Condition pour afficher les bons numéros de page avant la page actuelle : valeur par défaut ou minimale #}
+    {% set conditionBefore = currentPage != 1 and minimumPageQuantityAround <= currentPage - 1 %}
+    {# Condition pour afficher les bons numéros de page après la page actuelle : valeur par défaut ou minimale #}
+    {% set conditionAfter = currentPage != pageCount and minimumPageQuantityAround <= pageCount - currentPage %}
+    {# Définissez les numéros de page avant, les autres pages seront remplacées par "..." #}
+    {% set PageQuantityAroundBefore = conditionBefore ? defaultPageQuantityAround : minimumPageQuantityAround %}
+    {# Définissez les numéros de page après, les autres pages seront remplacées par "..." #}
+    {% set PageQuantityAroundAfter = conditionAfter ? defaultPageQuantityAround : minimumPageQuantityAround %}
+    <div class="pagination pagination-right">
+        <ul>
+            {# Lien précédent #}
+            {% if currentPage - 1 != 0 %}
+            <li><a href="{{ path(pathRoute, { 'page': currentPage - 1 }) }}" title="Previous">&laquo;</a></li>
+            {% endif %}
+            {% for i in 1..pageCount %}
+            {# Page actuelle à afficher #}
+            {% if currentPage == i %}
+            <li class="active"><a href="#">{{ i }}</a></li>
+            {# Afficher "..." avant la page actuelle en fonction des numéros de page à afficher avant #}
+            {% elseif (i < currentPage and 1 != i) and (i == currentPage - PageQuantityAroundBefore - 1) %}
+            <li class="disabled"><a href="#">...</a></li>
+            {# Afficher "..." après la page actuelle en fonction des numéros de page à afficher après #}
+            {% elseif (i > currentPage and pageCount != i) and (i == currentPage + PageQuantityAroundAfter + 1) %}
+            <li class="disabled"><a href="">...</a></li>
+            {# Masquer les pages sous la page actuelle et avant "..." sauf la page 1 #}
+            {% elseif (1 != i) and (i < currentPage - PageQuantityAroundBefore - 1) %}
+            <li class="hidden"><a href="{{ path(pathRoute, { 'page': i }) }}" title="Page {{ i }}">{{ i }}</a></li>
+            {# Masquer les pages au-dessus de la page actuelle et après "..." sauf la page portant le numéro "pageCount" (dernière) #}
+            {% elseif (pageCount != i) and (i > currentPage + PageQuantityAroundAfter + 1) %}
+            <li class="hidden"><a href="{{ path(pathRoute, { 'page': i }) }}" title="Page {{ i }}">{{ i }}</a></li>
+            {# Appliquer un style particulier pour le lien le plus bas correspondant à la première page 1 et le lien le plus élevé correspondant au nombre total de pages #}
+            {% elseif i == 1 or i == pageCount %}
+            <li><a href="{{ path(pathRoute, { 'page': i }) }}" title="Page {{ i }}">{{ i }}</a></li>
+            {# Liens normaux qui ne sont pas concernés par les conditions ci-dessus #}
+            {% else %}
+            <li><a href="{{ path(pathRoute, { 'page': i }) }}" title="Page {{ i }}">{{ i }}</a></li>
+            {% endif %}
+            {% endfor %}
+            {# Lien suivant #}
+            {% if currentPage + 1 <= pageCount %}
+            <li><a href="{{ path(pathRoute, { 'page': currentPage + 1 }) }}" title="Next">&raquo;</a></li>
+            {% endif %}
+        </ul>
+    </div>
+{% endif %}

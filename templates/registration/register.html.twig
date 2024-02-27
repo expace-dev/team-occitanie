@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+<section class="breadcrumbs">
+    <div class="container">
+        <ol>
+            <li><a href="index.html">Home</a></li>
+            <li>Blog</li>
+        </ol>
+        <h2>Blog</h2>
+    </div>
+</section>
+<section class="auth">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="section-header">
+                <h2>Créer un compte</h2>
+            </div>
+            <div class="info-box">
+                {{ form_start(registrationForm) }}
+                    <div class="row">
+                        <div class="col-lg-6">
+                            {{ form_label(registrationForm.poste) }}
+                            <div class="custom-select">  
+                                {{ form_widget(registrationForm.poste) }}
+                            </div> 
+                            {{ form_errors(registrationForm.poste) }}
+                        </div>
+                        <div class="col-lg-6">
+                            {{ form_label(registrationForm.username) }}
+                            {{ form_widget(registrationForm.username) }}
+                            {{ form_errors(registrationForm.username) }}
+                        </div>
+                        <div class="col-lg-6">
+                            {{ form_label(registrationForm.email) }}
+                            {{ form_widget(registrationForm.email) }}
+                            {{ form_errors(registrationForm.email) }}
+                        </div>
+                        <div class="col-lg-6">
+                            {{ form_label(registrationForm.plainPassword) }}
+                            {{ form_widget(registrationForm.plainPassword) }}
+                            {{ form_errors(registrationForm.plainPassword) }}
+                        </div>
+                        <div class="col-lg-12">
+                            {{ form_label(registrationForm.description) }}
+                            {{ form_widget(registrationForm.description) }}
+                            {{ form_help(registrationForm.description) }}
+                            {{ form_errors(registrationForm.description) }}
+                        </div>
+                        <div class="col-lg-12 mt-3">
+                            {{ form_label(registrationForm.avatar) }}
+                            {{ form_widget(registrationForm.avatar) }}
+                            {{ form_errors(registrationForm.avatar) }}
+                        </div>
+                        <div class="col-lg-12 text-start">
+                            <input class="btn btn-primary mt-2" type="submit" value="Créer mon compte">
+                        </div>
+                    </div>
+                {{ form_end(registrationForm) }}
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

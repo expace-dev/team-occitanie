@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+
+<!-- ======= Breadcrumbs ======= -->
+<section class="breadcrumbs">
+    <div class="container">
+        <ol>
+            <li><a href="index.html">Home</a></li>
+            <li>Blog</li>
+        </ol>
+        <h2>Blog</h2>
+    </div>
+</section><!-- End Breadcrumbs -->
+
+<section class="auth">
+    <div class="container">
+        <h2>Se connecter</h2>
+        <div class="row justify-content-center">
+            <div class="info-box" style="width: 600px;">
+                {% if error %}
+                    <div id="notyf-message" class="error">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+                <form method="post">
+                    <div class="block clear">
+                        <label for="inputEmail" class="required">Email</label>
+                        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required>
+                    </div>
+                    <div class="block clear">
+                        <label for="inputPassword" class="required">Mot de passe</label>
+                        <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+                    </div>
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                    <div style="text-align:center;">
+                        <a href="{{ path('app_forgot_password_request') }}">Mot de passe oublié ?</a> | <a href="{{ path('app_register') }}">Pas de compte ?</a>
+                    </div>
+                    <div class="text-center mt-4">
+                        <input class="btn btn-primary" type="submit" name="submit" value="Se connecter">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

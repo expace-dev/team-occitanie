@@ -1,0 +1,38 @@
+
+/*
+.table {
+    font-size: 14px;;
+}
+
+.table > thead > tr > th {
+    color: #fff;
+    background: #373737;
+    border: 1px solid #fff;
+    height: 20px;
+}
+.table > tbody > tr > td {
+    color: #fff;
+    background: #373737;
+    height: 20px;
+}
+*/
+table {font-size: 14px;}
+table, th, td {border-color:#D7D7D7;}
+th{color:#FFFFFF; background-color:#373737; text-align: left;}
+tr {color:inherit; background-color:#FBFBFB;}
+tr:nth-child(even) {color:inherit; background-color:#F7F7F7;}
+table, th, td{border:1px solid; border-collapse:collapse; vertical-align:top;}
+table, tbody, td{border:1px solid #fff; vertical-align: middle;}
+table, th{table-layout:auto;}
+table{width:100%; margin-bottom:15px;}
+th, td{padding:5px 8px;}
+td{border-width:0 1px;}
+
+.edit {color: dodgerblue !important;}
+.edit:hover{color: dodgerblue;}
+.powerOn {color: dodgerblue;}
+.powerOn:hover{color: dodgerblue;}
+.powerOff {color: red;}
+.powerOff:hover{color: red;}
+.remove {color: red !important;}
+.remove:hover{color: red;}
