@@ -47,7 +47,7 @@ class UserController extends AbstractController
      * Permet à un joueur de modifier sa fiche
      */
     #[Route('/profil/edition', name: 'app_user_edit_client', methods: ['GET', 'POST']), IsGranted('ROLE_USER')]
-    public function editProfil(Request $request, EntityManagerInterface $entityManager): Response
+    public function editProfil(Request $request, EntityManagerInterface $entityManager, UsersRepository $userRepository): Response
     {
         $user = $this->getUser();
         
@@ -77,45 +77,51 @@ class UserController extends AbstractController
 
             return $this->redirectToRoute('app_user_edit_client', [], Response::HTTP_SEE_OTHER);
         }
+        
+        $url = $this->generateUrl('app_user_edit_client', [
+            '_fragment' => 'credentials'
+        ]);
 
         $formUserCredentials = $this->createForm(UserCredentialsFormType::class, $user);
         $formUserCredentials->handleRequest($request);
 
         if ($formUserCredentials->isSubmitted() && $formUserCredentials->isValid()) {
-            $url = $this->generateUrl('app_user_edit_client', [
-                '_fragment' => 'credentials'
-            ]);
 
             $verifiedPassword = $this->encoder->isPasswordValid($user, $formUserCredentials->get('ancienPassword')->getData());
 
             if ($verifiedPassword === false) {
-                $this->addFlash('error', 'Ton mot de passe est invalide');
-                return $this->redirect($url);
+                    $this->addFlash('error', 'Ton mot de passe est invalide');
+                    return $this->redirect($url);
             }
-            else {
+            if ($formUserCredentials->get('plainPassword')->getData()) {
                 if ($formUserCredentials->get('plainPassword')->getData() === $formUserCredentials->get('ancienPassword')->getData()) {
                     $this->addFlash('error', 'Ton mot de passe correspond à celui enregistré');
-                    
-                    return $this->redirect($url);
+                        return $this->redirect($url);
                 }
                 else {
                     $passwordEncoded = $this->encoder->hashPassword(
-                        $user,
-                        $formUserCredentials->get('plainPassword')->getData()
+                    $user,
+                    $formUserCredentials->get('plainPassword')->getData()
                     );
-
                     $user->setPassword($passwordEncoded);
-
-                    $entityManager->flush();
-
-                    $this->addFlash('success', 'Tes identifiants ont bien été mis à jour');
-
-                    return $this->redirectToRoute('app_user_edit_client', [], Response::HTTP_SEE_OTHER);
                 }
             }
-            
+
+
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Tes identifiants ont bien été mis à jour');
+
+            return $this->redirect($url);
 
         }
+        
+        if ($formUserCredentials->isSubmitted() && !$formUserCredentials->isValid()) {
+            $this->addFlash('error', 'Tu ne peux pas utiliser cette adresse Email');
+
+            return $this->redirect($url);
+        }
+
 
         return $this->render('user/edit_by_user.html.twig', [
             'user' => $user,

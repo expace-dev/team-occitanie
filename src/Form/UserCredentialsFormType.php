@@ -28,6 +28,7 @@ class UserCredentialsFormType extends AbstractType
                 ]
             ])
             ->add('plainPassword', PasswordType::class, [
+                'required' => false,
                 'always_empty' => false,
                 'label_attr' => [
                     'class' => 'col-lg-12'
