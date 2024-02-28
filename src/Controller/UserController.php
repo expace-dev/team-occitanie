@@ -14,15 +14,18 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserController extends AbstractController
 {
 
     private UploadService $uploadService;
+    private UserPasswordHasherInterface $encoder;
 
-    public function __construct(UploadService $uploadService)
+    public function __construct(UploadService $uploadService, UserPasswordHasherInterface $encoder)
     {
         $this->uploadService = $uploadService;
+        $this->encoder = $encoder;
     }
     /**
      * Permet de lister les joueurs
@@ -79,19 +82,21 @@ class UserController extends AbstractController
         $formUserCredentials->handleRequest($request);
 
         if ($formUserCredentials->isSubmitted() && $formUserCredentials->isValid()) {
-
+            $url = $this->generateUrl('app_user_edit_client', [
+                '_fragment' => 'credentials'
+            ]);
 
             $verifiedPassword = $this->encoder->isPasswordValid($user, $formUserCredentials->get('ancienPassword')->getData());
 
             if ($verifiedPassword === false) {
-                $this->addFlash('danger', 'Ton mot de passe est invalide');
-                return $this->redirectToRoute('app_user_edit_client');
+                $this->addFlash('error', 'Ton mot de passe est invalide');
+                return $this->redirect($url);
             }
             else {
                 if ($formUserCredentials->get('plainPassword')->getData() === $formUserCredentials->get('ancienPassword')->getData()) {
-                    $this->addFlash('danger', 'Ton mot de passe correspond à celui enregistré');
+                    $this->addFlash('error', 'Ton mot de passe correspond à celui enregistré');
                     
-                    return $this->redirectToRoute('app_user_edit_client');
+                    return $this->redirect($url);
                 }
                 else {
                     $passwordEncoded = $this->encoder->hashPassword(
