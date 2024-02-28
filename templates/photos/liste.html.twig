@@ -1,8 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}User index{% endblock %}
+{% if photos %}
 {% set pageCount = photos.pages %}
 {% set currentPage = photos.page %}
+{% endif %}
+
+
 {% block body %}
     <section class="breadcrumbs">
         <div class="container">
