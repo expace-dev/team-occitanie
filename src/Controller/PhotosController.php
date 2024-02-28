@@ -93,7 +93,9 @@ class PhotosController extends AbstractController
             $routeRetour = 'app_photos_index';
         }
 
-        unlink($photos->getUrl());
+        //dd('/var/www/clients/client0/web2/web/public' . $photos->getUrl());
+
+        unlink('/var/www/clients/client0/web2/web/public' . $photos->getUrl());
 
         $entityManager->remove($photos);
         $entityManager->flush();
