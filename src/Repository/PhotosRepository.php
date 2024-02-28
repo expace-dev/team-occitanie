@@ -54,7 +54,7 @@ class PhotosRepository extends ServiceEntityRepository
 
     }
 
-    public function findPhotosUser($page, $limit = 15, $user) {
+    public function findPhotosUser($page, $user, $limit = 15) {
         $limit = abs($limit);
 
         $result = [];

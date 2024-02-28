@@ -37,7 +37,7 @@ class PhotosController extends AbstractController
         $page = $request->query->getInt('page', 1);
 
         return $this->render('photos/liste.html.twig', [
-            'photos' => $photosRepository->findPhotosUser($page, 5, $this->getUser()),
+            'photos' => $photosRepository->findPhotosUser($page, $this->getUser(), 5),
         ]);
     }
     #[Route('/gestion/photos', name: 'app_photos_index', methods: ['GET'])]
