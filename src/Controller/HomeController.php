@@ -15,8 +15,8 @@ class HomeController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function index(ArticlesRepository $articlesRepository, PhotosRepository $photosRepository, UsersRepository $usersRepository): Response
     {
-            $articles = $articlesRepository->findBy([], ['id' => 'ASC',], 3);
-            $photos = $photosRepository->findBy([], ['id' => 'ASC',], 9);
+            $articles = $articlesRepository->findBy(['active' => true], ['id' => 'ASC',], 3);
+            $photos = $photosRepository->findBy(['statut' => true], ['id' => 'ASC',], 9);
             $membres = $usersRepository->findAll();
 
 

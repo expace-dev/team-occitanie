@@ -26,6 +26,9 @@
                 Liste des photos
                 {% endif %}
             </h2>
+            <p style="margin-bottom: 5px !important;">
+                <a href="{{ path('app_photos_ajouter') }}" class="btn btn-success">Ajouter une photo</a>
+            </p>
             <table>
                 <thead>
                     <tr>
@@ -38,34 +41,39 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for photo in photos.data %}
-                        <tr>
-                            <td>
-                                <a href="{{ photo.url }}" data-gallery="portfolio-gallery-app" class="glightbox">
-                                    <img src="{{ photo.url }}" class="img-fluid img-thumbnail" alt="" width="100px">
-                                </a>
-                            </td>
-                            <td>{{ photo.createdAt|format_datetime(locale='fr',pattern="d MMMM YYYY") }}</td>
-                            {% if app.request.attributes.get('_route') == 'app_photos_index' %}
-                            <td>{{ photo.users.username }}</td>
-                            {% endif %}
-                            <td>
-                                {% if photo.statut == false %}
-                                    <a class="powerOff" href="{{ path('app_photos_activate', {'id': photo.id}) }}"><i   class="fa fa-power-off" aria-hidden="true"></i></a>&nbsp;&nbsp;
-                                {% else %}
-                                    <a class="powerOn" href="{{ path('app_photos_activate', {'id': photo.id}) }}"><i   class="fa fa-power-off" aria-hidden="true"></i></a>&nbsp;&nbsp;
+                    {% if photos %}
+                        {% for photo in photos.data %}
+                            <tr>
+                                <td>
+                                    <a href="{{ photo.url }}" data-gallery="portfolio-gallery-app" class="glightbox">
+                                        <img src="{{ photo.url }}" class="img-fluid img-thumbnail" alt="" width="100px">
+                                    </a>
+                                </td>
+                                <td>{{ photo.createdAt|format_datetime(locale='fr',pattern="d MMMM YYYY") }}</td>
+                                {% if app.request.attributes.get('_route') == 'app_photos_index' %}
+                                <td>{{ photo.users.username }}</td>
                                 {% endif %}
-                                <a class="remove" href="{{ path('app_photos_delete', {'id': photo.id}) }}"><i   class="fa fa-trash" aria-hidden="true"></i></a>
-                            </td>
-                        </tr>
-                    {% else %}
-                        <tr>
-                            <td colspan="10">no records found</td>
-                        </tr>
-                    {% endfor %}
+                                <td>
+                                    {% if photo.statut == false %}
+                                        <a class="powerOff" href="{{ path('app_photos_activate', {'id': photo.id}) }}"><i   class="fa fa-power-off" aria-hidden="true"></i></a>&nbsp;&nbsp;
+                                    {% else %}
+                                        <a class="powerOn" href="{{ path('app_photos_activate', {'id': photo.id}) }}"><i   class="fa fa-power-off" aria-hidden="true"></i></a>&nbsp;&nbsp;
+                                    {% endif %}
+                                    <a class="remove" href="{{ path('app_photos_delete', {'id': photo.id}) }}"><i   class="fa fa-trash" aria-hidden="true"></i></a>
+                                </td>
+                            </tr>
+                            
+                        {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="3" class="text-center">Aucune photo pour le moment</td>
+                            </tr>
+                    {% endif %}
                 </tbody>
             </table>
-            {% include "partials/_pagination.html.twig" %}
+            {% if photos %}
+                {% include "partials/_pagination.html.twig" %}
+            {% endif %}
         </div>
     </section>
     <script>
