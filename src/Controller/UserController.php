@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Users;
 use App\Form\UserFormType;
 use App\Form\UserInfoFormType;
+use App\Services\UploadService;
 use App\Repository\UsersRepository;
 use App\Form\UserCredentialsFormType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -16,6 +17,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class UserController extends AbstractController
 {
+
+    private UploadService $uploadService;
+
+    public function __construct(UploadService $uploadService)
+    {
+        $this->uploadService = $uploadService;
+    }
     /**
      * Permet de lister les joueurs
      *
@@ -44,7 +52,22 @@ class UserController extends AbstractController
         $formUserInfo->handleRequest($request);
 
         if ($formUserInfo->isSubmitted() && $formUserInfo->isValid()) {
-            
+
+            // Si on réceptionne une image d'illustration
+            if ($formUserInfo->get('avatar')->getData()) {
+
+                if ($user->getAvatar()) {
+                    unlink('/var/www/clients/client0/web2/web/public' . $user->getAvatar());
+                }
+                // On récupère l'image
+                $fichier = $formUserInfo->get('avatar')->getData();
+                // On récupère le répertoire de destination
+                $directory = 'avatar_directory';
+                // Puis on upload la nouvelle image et on ajoute cela à  l'article
+                $user->setAvatar('/images/avatars/' .$this->uploadService->send($fichier, $directory));
+
+            }
+
             $entityManager->flush();
 
             $this->addFlash('success', 'Ton profil a bien été mis à jour');
