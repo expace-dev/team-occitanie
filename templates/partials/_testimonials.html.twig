@@ -13,7 +13,11 @@
                 {{ membre.description }}
               </p>
               <div class="profile mt-auto">
-                <img src="{{ membre.avatar }}" class="testimonial-img" alt="">
+                {% if membre.avatar %}
+                  <img src="{{ membre.avatar }}" class="testimonial-img" alt="">
+                {% else %}
+                  <img src="/images/avatars/no-avatar.png" class="testimonial-img" alt="">
+                {% endif %}
                 <h3>{{ membre.username }}</h3>
                 <h4>{{ membre.poste }}</h4>
               </div>
