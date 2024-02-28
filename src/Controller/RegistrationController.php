@@ -6,6 +6,7 @@ use App\Entity\Users;
 use App\Form\RegistrationFormType;
 use App\Security\AppAuthenticator;
 use App\Security\EmailVerifier;
+use App\Services\UploadService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,10 +22,12 @@ use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 class RegistrationController extends AbstractController
 {
     private EmailVerifier $emailVerifier;
+    private UploadService $uploadService;
 
-    public function __construct(EmailVerifier $emailVerifier)
+    public function __construct(EmailVerifier $emailVerifier, UploadService $uploadService)
     {
         $this->emailVerifier = $emailVerifier;
+        $this->uploadService = $uploadService;
     }
 
     #[Route('/nous-rejoindre', name: 'app_register')]
@@ -43,6 +46,19 @@ class RegistrationController extends AbstractController
                 )
             );
 
+            // Si on réceptionne une image d'illustration
+            if ($form->get('avatar')->getData()) {
+                // On récupère l'image
+                $fichier = $form->get('avatar')->getData();
+                // On récupère le répertoire de destination
+                $directory = 'avatar_directory';
+                // Puis on upload la nouvelle image et on ajoute cela à  l'article
+                $user->setAvatar('/images/avatars/' .$this->uploadService->send($fichier, $directory));
+            }
+
+            $user->setAvatar('/images/avatars/no-avatar.png')
+                 ->setRole('ROLE_USER');
+
             $entityManager->persist($user);
             $entityManager->flush();
 
@@ -54,6 +70,8 @@ class RegistrationController extends AbstractController
                     ->subject('Please Confirm your Email')
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
+
+            
             // do anything else you need here, like send an email
 
             return $userAuthenticator->authenticateUser(
