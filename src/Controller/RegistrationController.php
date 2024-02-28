@@ -55,9 +55,6 @@ class RegistrationController extends AbstractController
                 // Puis on upload la nouvelle image et on ajoute cela à  l'article
                 $user->setAvatar('/images/avatars/' .$this->uploadService->send($fichier, $directory));
             }
-            else {
-                $user->setAvatar('/images/avatars/no-avatar.png');
-            }
 
             $user->setRole('ROLE_USER');
 
