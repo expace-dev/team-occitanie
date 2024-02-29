@@ -1,3 +1,7 @@
+{% if this.allBlogpost %}
+
+{% endif %}
+
 {% for article in this.allBlogpost.data %}
     {{ component('blogpost', {'id': article.id}) }}
 {% endfor %}
