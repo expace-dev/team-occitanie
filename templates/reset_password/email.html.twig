@@ -1,9 +1,66 @@
-<h1>Hi!</h1>
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Nouveau mot de passe</title>
+    </head>
+    <body>
+        <div style="display: flex; justify-content: center;">
+            <div style="
+                color: #444444;
+                box-shadow: 0 0 30px rgba(214, 215, 216, 0.6);
+                padding: 20px 0 30px 0;
+                width: 600px;
+            ">
 
-<p>To reset your password, please visit the following link</p>
+                <div style="padding: 20px 20px 20px 20px;">
+                    
+                    <h3 style="text-align:center;">Changement d'identifiants</h3><br>
 
-<a href="{{ url('app_reset_password', {token: resetToken.token}) }}">{{ url('app_reset_password', {token: resetToken.token}) }}</a>
+                    <p>
 
-<p>This link will expire in {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.</p>
+                        Tu as demandé la réinitialisation du mot de passe.<br>
+                        Pour ce faire clique sur le bouton ci-dessous<br><br>
+                        
+                        
+                    </p>
+                    <p style="text-align: center;">
+                        <a 
+                            style="
+                                background: #82A800;
+                                border: 0;
+                                padding: 10px 24px;
+                                border-radius: 5px;
+                                color: #fff;
+                                transition: 0.4s;
+                                text-decoration: none;
+                            "
 
-<p>Cheers!</p>
+                            href="
+                                {{ url('app_reset_password', {token: resetToken.token}) }}
+                            "
+                            >
+                            Réinitialiser mon mot de passe
+                        </a>
+                        <br><br>
+                    </p>
+                    
+
+                    <p>Ce lien expire dans {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.</p>
+
+                </div>
+
+            </div>    
+        </div>
+        
+    </body>
+</html>
+
+
+
+
+
+
+

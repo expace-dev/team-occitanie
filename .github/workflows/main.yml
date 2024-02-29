@@ -23,4 +23,5 @@ jobs:
           "cd web/ &&
           git pull &&
           composer install &&
+          npm run build &&
           php bin/console d:m:m -n"

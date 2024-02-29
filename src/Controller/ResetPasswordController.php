@@ -92,6 +92,7 @@ class ResetPasswordController extends AbstractController
 
         try {
             $user = $this->resetPasswordHelper->validateTokenAndFetchUser($token);
+            
         } catch (ResetPasswordExceptionInterface $e) {
             $this->addFlash('reset_password_error', sprintf(
                 '%s - %s',
@@ -121,6 +122,8 @@ class ResetPasswordController extends AbstractController
 
             // The session is cleaned up after the password has been changed.
             $this->cleanSessionAfterReset();
+
+            $this->addFlash('success', 'Ton mot de passe a bien été réinitialisé');
 
             return $this->redirectToRoute('app_login');
         }
@@ -160,7 +163,7 @@ class ResetPasswordController extends AbstractController
         $email = (new TemplatedEmail())
             ->from(new Address('admin@team-occitanie.fr', 'Team Occitanie'))
             ->to($user->getEmail())
-            ->subject('Your password reset request')
+            ->subject('Ta demande de réinitialisation')
             ->htmlTemplate('reset_password/email.html.twig')
             ->context([
                 'resetToken' => $resetToken,
@@ -171,6 +174,8 @@ class ResetPasswordController extends AbstractController
 
         // Store the token object in session for retrieval in check-email route.
         $this->setTokenObjectInSession($resetToken);
+
+        //$this->addFlash('success', 'Nous venons de t\'envoyer un mail');
 
         return $this->redirectToRoute('app_check_email');
     }

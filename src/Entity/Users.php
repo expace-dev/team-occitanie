@@ -58,11 +58,15 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Photos::class, mappedBy: 'users', orphanRemoval: true)]
     private Collection $photos;
 
+    #[ORM\OneToMany(targetEntity: Taches::class, mappedBy: 'auteur', orphanRemoval: true)]
+    private Collection $taches;
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
         $this->commentaires = new ArrayCollection();
         $this->photos = new ArrayCollection();
+        $this->taches = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -288,6 +292,36 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($photo->getUsers() === $this) {
                 $photo->setUsers(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Taches>
+     */
+    public function getTaches(): Collection
+    {
+        return $this->taches;
+    }
+
+    public function addTach(Taches $tach): static
+    {
+        if (!$this->taches->contains($tach)) {
+            $this->taches->add($tach);
+            $tach->setAuteur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTach(Taches $tach): static
+    {
+        if ($this->taches->removeElement($tach)) {
+            // set the owning side to null (unless already changed)
+            if ($tach->getAuteur() === $this) {
+                $tach->setAuteur(null);
             }
         }
 

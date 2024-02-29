@@ -66,7 +66,7 @@ class RegistrationController extends AbstractController
                 (new TemplatedEmail())
                     ->from(new Address('admin@team-occitanie.fr', 'Team Occitanie'))
                     ->to($user->getEmail())
-                    ->subject('Please Confirm your Email')
+                    ->subject('Suite à ton inscription')
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
 
