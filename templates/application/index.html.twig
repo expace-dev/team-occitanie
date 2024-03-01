@@ -26,7 +26,7 @@
                     <div class="service-item d-flex">
                         <div class="icon flex-shrink-0"><i class="bi bi-briefcase"></i></div>
                     <div>
-                    <h4 class="title"><a href="services-details.html" class="stretched-link">Tache à effectuer</a></h4>
+                    <h4 class="title"><a class="stretched-link">Tache à effectuer</a></h4>
                     <p class="description">Retrouve ici les taches que nos joueurs ont signalés comme non effectué. Si tu as une tache à signaler tu peux le faire ci-dessous</p>
                 </div>
             </div>
@@ -37,19 +37,151 @@
                         <th>Signalé par</th>
                         <th>Signalé le</th>
                         <th>Délai</th>
-                        <th style="width:90px;">actions</th>
+                        <th>Map</th>
+                        <th style="width:20px;">actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
+                    {% if taches %}
+                        {% for tache in taches.data %}
+                            <tr>
+                            <td>{{ tache.type }}</td>
+                            <td>{{ tache.auteur.username }}</td>
+                            <td>{{ tache.createdAt|date('d-m-Y') }}</td>
+                            <td>{{ tache.delai|date('d-m-Y') }}</td>
+                            <td>{{ tache.map }}</td>
+                            <td>
+                            &nbsp;&nbsp;<a data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Confirmer l'exécution" class="activation" href="{{ path('app_application_validation', {'id': tache.id}) }}"><i class="fa-solid fa-square-check"></i></a>&nbsp;&nbsp;
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="6" class="text-center">Aucune tâche à afficher pour le moment</td>
+                        </tr>
+                    {% endif %}
+                    
+                    
+                    
                 </tbody>
             </table>
         </div>
-    </section><!-- End Services Section -->
+    </section>
+
+    <section class="auth">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="info-box" data-aos="fade-up" data-aos-delay="400">
+                    {{ form_start(formTache) }}
+                        <div class="row">
+                            <div class="col-lg-12">
+                            {{ form_label(formTache.type) }}
+                            {{ form_widget(formTache.type) }}
+                            {{ form_errors(formTache.type) }}
+                            </div>
+                            <div class="col-lg-6">
+                            {{ form_label(formTache.delai) }}
+                            {{ form_widget(formTache.delai) }}
+                            {{ form_errors(formTache.delai) }}
+                            </div>
+                            <div class="col-lg-6">
+                            {{ form_label(formTache.map) }}
+                            {{ form_widget(formTache.map) }}
+                            {{ form_errors(formTache.map) }}
+                            </div>
+                            <div class="col-lg-12 text-start">
+                                <input class="btn btn-primary mt-2" type="submit" value="Enregistrer la publication">
+                            </div>
+                        </div>
+                    {{ form_end(formTache) }}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section - Home Page -->
+    <section id="services" class="services">
+        <div class="container section-title" data-aos="fade-up">
+            <h2>Euro Truck Simulator</h2>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 " data-aos="fade-up" data-aos-delay="800">
+                    <div class="service-item d-flex">
+                        <div class="icon flex-shrink-0"><i class="bi bi-brightness-high"></i></div>
+                    <div>
+                    <h4 class="title"><a class="stretched-link">Evenements à venir</a></h4>
+                    <p class="description">Retrouve ici les évènements à venir sur Euro Trucks Simulator, ici nos joueurs te roposerons des convois perso ou encore d'autres convois sur les serveurs de Trucker MP</p>
+                </div>
+            </div>
+            <table class="mt-3">
+                <thead>
+                    <tr>
+                        <th>Visuel</th>
+                        <th>Créé par</th>
+                        <th>Date et heure de l"évènement</th>
+                        <th>Type de session</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if taches %}
+                        {% for tache in taches.data %}
+                            <tr>
+                            <td>{{ tache.type }}</td>
+                            <td>{{ tache.auteur.username }}</td>
+                            <td>{{ tache.createdAt|date('d-m-Y') }}</td>
+                            <td>{{ tache.delai|date('d-m-Y') }}</td>
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="6" class="text-center">Aucune tâche à afficher pour le moment</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="auth">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="info-box" data-aos="fade-up" data-aos-delay="400">
+                    {{ form_start(formEvents) }}
+                        <div class="row">
+                            <div class="col-lg-12">
+                            {{ form_widget(formEvents.dateEvents) }}
+                            </div>
+                            <div class="col-lg-12 text-start">
+                                <input class="btn btn-primary mt-2" type="submit" value="Enregistrer la publication">
+                            </div>
+                        </div>
+                    {{ form_end(formEvents) }}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        $(document).ready( function () {
+            $(".activation").click(function (event) {
+                event.preventDefault();
+                url = $(this).attr('href');
+                Swal.fire({
+                    text: "Confirmez vous vraiment l'exécution de la tâche ?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#82A800',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Confirmation'
+                }).then((result) => {
+                    if(result.isConfirmed) {
+                        document.location.href = url;
+                    }
+                })
+            });
+        });
+    </script>
+
+
 {% endblock %}

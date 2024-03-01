@@ -6,6 +6,11 @@ import './bootstrap.js';
  * which should already be in your base.html.twig.
  */
 import './styles/app.scss';
+import '../node_modules/@popperjs/core//dist/cjs/popper.js'
+import '../node_modules/bootstrap/js/src/tooltip.js';
+
+const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 
 import '@grafikart/drop-files-element';
 

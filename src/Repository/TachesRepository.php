@@ -30,6 +30,7 @@ class TachesRepository extends ServiceEntityRepository
         $query = $this->getEntityManager()->createQueryBuilder()
             ->select('a')
             ->from('App\Entity\Taches', 'a')
+            ->andWhere('a.statut = true')
             ->setMaxResults($limit)
             ->setFirstResult(($page * $limit) - $limit)
             ->orderBy('a.createdAt', 'DESC');

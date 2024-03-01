@@ -12,7 +12,7 @@
     left: 0;
     right: 0;
     height: 2px;
-    background: rgba(var(--default-color-rgb), 0.1);
+    background: rgba(33, 37, 41, 0.1);
   }
   
   .services .service-item::after {
@@ -22,8 +22,8 @@
     left: 0;
     width: 30px;
     height: 2px;
-    background: var(--accent-color);
-    border-right: 5px solid var(--background-color);
+    background: #82A800;
+    border-right: 5px solid #ffffff;
   }
   
   .services .service-item .icon {
@@ -35,7 +35,7 @@
   }
   
   .services .service-item .icon i {
-    color: rgba(var(--default-color-rgb), 0.7);
+    color: rgba(33, 37, 41, 0.7);
     font-size: 56px;
     transition: ease-in-out 0.3s;
     z-index: 2;
@@ -47,12 +47,13 @@
     content: "";
     height: 30px;
     width: 30px;
-    background: rgba(var(--accent-color-rgb), 0.3);
+    background: #82A800;
     border-radius: 50px;
     z-index: 1;
     bottom: -15px;
     right: -15px;
     transition: 0.3s;
+    opacity: 0.5;
   }
   
   .services .service-item .title {
@@ -62,11 +63,11 @@
   }
   
   .services .service-item .title a {
-    color: var(--heading-color);
+    color: #82A800;
   }
   
   .services .service-item .title a:hover {
-    color: var(--accent-color);
+    color: #82A800;
   }
   
   .services .service-item .description {

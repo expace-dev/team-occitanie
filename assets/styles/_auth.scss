@@ -81,11 +81,13 @@
   .auth input[type=text],
   .auth input[type=email],
   .auth input[type=password],
-  .auth input[type=submit]  {
+  .auth input[type=submit],
+  .auth input[type=date] {
 	padding: 10px 15px;
 	margin-bottom: 15px;
   }
 
+  
   .auth input[type=submit] {
 	background: #82A800;
 	border: 0;

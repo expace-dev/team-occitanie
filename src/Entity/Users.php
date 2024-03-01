@@ -61,12 +61,16 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Taches::class, mappedBy: 'auteur', orphanRemoval: true)]
     private Collection $taches;
 
+    #[ORM\OneToMany(targetEntity: Evenements::class, mappedBy: 'auteur')]
+    private Collection $evenements;
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
         $this->commentaires = new ArrayCollection();
         $this->photos = new ArrayCollection();
         $this->taches = new ArrayCollection();
+        $this->evenements = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -322,6 +326,36 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($tach->getAuteur() === $this) {
                 $tach->setAuteur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Evenements>
+     */
+    public function getEvenements(): Collection
+    {
+        return $this->evenements;
+    }
+
+    public function addEvenement(Evenements $evenement): static
+    {
+        if (!$this->evenements->contains($evenement)) {
+            $this->evenements->add($evenement);
+            $evenement->setAuteur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvenement(Evenements $evenement): static
+    {
+        if ($this->evenements->removeElement($evenement)) {
+            // set the owning side to null (unless already changed)
+            if ($evenement->getAuteur() === $this) {
+                $evenement->setAuteur(null);
             }
         }
 

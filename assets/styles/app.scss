@@ -148,3 +148,8 @@ div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm {
 .select-items div {
   margin-bottom: 0px !important;
 }
+
+.custom-tooltip {
+  --bs-tooltip-bg: #82A800;
+  --bs-tooltip-color: #fff;
+}

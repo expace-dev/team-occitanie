@@ -30,6 +30,9 @@ class Taches
     #[ORM\Column(length: 255)]
     private ?string $map = null;
 
+    #[ORM\Column]
+    private ?bool $statut = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -91,6 +94,18 @@ class Taches
     public function setMap(string $map): static
     {
         $this->map = $map;
+
+        return $this;
+    }
+
+    public function isStatut(): ?bool
+    {
+        return $this->statut;
+    }
+
+    public function setStatut(bool $statut): static
+    {
+        $this->statut = $statut;
 
         return $this;
     }
