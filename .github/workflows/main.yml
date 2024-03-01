@@ -26,3 +26,4 @@ jobs:
           npm install &&
           npm run build &&
           php bin/console d:m:m -n"
+          
