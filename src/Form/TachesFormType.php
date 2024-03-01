@@ -23,12 +23,12 @@ class TachesFormType extends AbstractType
                     'class' => 'col-lg-12'
                 ]
             ])
-            ->add('delai', DateType::class, [
+            ->add('delai', TextType::class, [
                 'label' => 'A effectuer avant',
                 'label_attr' => [
                     'class' => 'col-lg-12'
                 ],
-                'widget' => 'single_text',
+                'mapped' => false
             ])
             ->add('map', ChoiceType::class, [
                 'choices' => [

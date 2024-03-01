@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Evenements;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\Tools\Pagination\Paginator;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Evenements>
@@ -19,6 +20,40 @@ class EvenementsRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Evenements::class);
+    }
+
+    public function findEvenements($page, $limit = 15) {
+        $limit = abs($limit);
+
+        $result = [];
+
+        $query = $this->getEntityManager()->createQueryBuilder()
+            ->select('a')
+            ->from('App\Entity\Evenements', 'a')
+            ->andWhere('a.dateEvents >= :val')
+            ->setParameter('val', date('Y-m-d H:i:s'))
+            ->setMaxResults($limit)
+            ->setFirstResult(($page * $limit) - $limit)
+            ->orderBy('a.dateEvents', 'ASC');
+
+        $paginator = new Paginator($query);
+        $data = $paginator->getQuery()->getResult();
+        
+        
+        if (empty($data)) {
+            return $result;
+        }
+
+        $pages = ceil($paginator->count() / $limit);
+
+        $result['data'] = $data;
+        $result['pages'] = $pages;
+        $result['page'] = $page;
+        $result['limit'] = $limit;
+        //dd($data);
+
+        return $result;
+
     }
 
     //    /**

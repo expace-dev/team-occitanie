@@ -14,7 +14,7 @@ class Evenements
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $visuel = null;
 
     #[ORM\ManyToOne(inversedBy: 'evenements')]
@@ -32,6 +32,9 @@ class Evenements
     #[ORM\Column(length: 255)]
     private ?string $description = null;
 
+    #[ORM\Column]
+    private ?bool $statut = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -42,7 +45,7 @@ class Evenements
         return $this->visuel;
     }
 
-    public function setVisuel(string $visuel): static
+    public function setVisuel(?string $visuel): static
     {
         $this->visuel = $visuel;
 
@@ -105,6 +108,18 @@ class Evenements
     public function setDescription(string $description): static
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function isStatut(): ?bool
+    {
+        return $this->statut;
+    }
+
+    public function setStatut(bool $statut): static
+    {
+        $this->statut = $statut;
 
         return $this;
     }

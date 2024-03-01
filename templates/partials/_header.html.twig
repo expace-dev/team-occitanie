@@ -9,7 +9,9 @@
         {% if app.user %}
           <li class="dropdown has-dropdown"><a href="#"><span>Mon compte</span> <i class="bi bi-chevron-down"></i></a>
             <ul class="dd-box-shadow">
-              <li><a href="{{ path('app_user_edit_client') }}">Mon application</a></li>
+              <li><a href="{{ path('app_application_index') }}">Mon application</a></li>
+              <li><a href="{{ path('app_application_index') }}">Mes evenements</a></li>
+              <li><a href="{{ path('app_application_index') }}">Gérer mes taches</a></li>
               <li><a href="{{ path('app_photos_user') }}">Gérer mes photos</a></li>
               <li><a href="{{ path('app_photos_ajouter') }}">Ajouter une photo</a></li>
               {% if app.user.role == 'ROLE_EDIT' %}

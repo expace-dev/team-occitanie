@@ -23,7 +23,7 @@ class EvenementsFormType extends AbstractType
             ->add('visuel', FileType::class, [
                 'attr' => [
                     'is' => 'drop-files',
-                    'label' => 'Déposez votre photo ou cliquez pour ajouter.',
+                    'label' => 'Déposez votre image ou cliquez pour ajouter.',
                     'help' => 'Seul les fichiers jpg jpeg et png sont accepté',
                 ],
                 'label' => 'Image d\'illustration',
@@ -41,8 +41,12 @@ class EvenementsFormType extends AbstractType
                     ])
                 ]
             ])
-            ->add('dateEvents', DateTimeType::class, [
-                'widget' => 'single_text',
+            ->add('dateEvents', TextType::class, [
+                'label' => 'Date de l\'évènement',
+                'label_attr' => [
+                    'class' => 'col-lg-12'
+                ],
+                'mapped' => false
             ])
             ->add('typeSession', ChoiceType::class, [
                 'choices' => [
@@ -50,7 +54,7 @@ class EvenementsFormType extends AbstractType
                     'Convoi perso' => 'Convoi perso',
                     'Trucker MP' => 'Trucker MP',
                 ],
-                'label' => 'Sélectionner une option',
+                'label' => 'Type de session',
                 'label_attr' => [
                     'class' => 'col-lg-12'
                 ],
