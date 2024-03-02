@@ -56,6 +56,40 @@ class EvenementsRepository extends ServiceEntityRepository
 
     }
 
+    public function findEvenementsAuteur($page, $limit = 15, $user) {
+        $limit = abs($limit);
+
+        $result = [];
+
+        $query = $this->getEntityManager()->createQueryBuilder()
+            ->select('a')
+            ->from('App\Entity\Evenements', 'a')
+            ->andWhere('a.auteur = :val')
+            ->setParameter('val', $user)
+            ->setMaxResults($limit)
+            ->setFirstResult(($page * $limit) - $limit)
+            ->orderBy('a.dateEvents', 'ASC');
+
+        $paginator = new Paginator($query);
+        $data = $paginator->getQuery()->getResult();
+        
+        
+        if (empty($data)) {
+            return $result;
+        }
+
+        $pages = ceil($paginator->count() / $limit);
+
+        $result['data'] = $data;
+        $result['pages'] = $pages;
+        $result['page'] = $page;
+        $result['limit'] = $limit;
+        //dd($data);
+
+        return $result;
+
+    }
+
     //    /**
     //     * @return Evenements[] Returns an array of Evenements objects
     //     */

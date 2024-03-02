@@ -1,0 +1,93 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User index{% endblock %}
+{% if evenements %}
+    {% set pageCount = evenements.pages %}
+    {% set currentPage = evenements.page %}
+{% endif %}
+
+
+{% block body %}
+    <section class="breadcrumbs">
+        <div class="container">
+            <ol>
+                <li><a href="index.html">Home</a></li>
+                <li>Blog</li>
+            </ol>
+            <h2>Blog</h2>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            {% if app.user.role == 'ROLE_USER' %}
+            <h2>Mes evenements</h2>
+            {% else %}
+            <h2>Liste des evenements</h2>    
+            {% endif %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Visuel</th>
+                        <th>Créé par</th>
+                        <th>Date et heure de l"évènement</th>
+                        <th>Type de session</th>
+                        <th style="width:90px;">actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if evenements %}
+                        {% for evenement in evenements.data %}
+                            <tr>
+                                <td>
+                                    {% if evenement.visuel %}
+                                        <a href="{{ evenement.visuel }}" data-gallery="portfolio-gallery-app" class="glightbox">
+                                            <img src="{{ evenement.visuel }}" class="img-fluid img-thumbnail" alt="" width="100px">
+                                        </a>
+                                    {% else %}
+                                        <a href="/images/evenements/no_visuel.png" data-gallery="portfolio-gallery-app" class="glightbox">
+                                            <img src="/images/evenements/no_visuel.png" class="img-fluid img-thumbnail" alt="" width="50px">
+                                        </a>
+                                    {% endif %}
+                                </td>
+                                <td>{{ evenement.auteur.username }}</td>
+                                <td>{{ evenement.dateEvents|date('d-m-Y H:i') }}</td>
+                                <td>{{ evenement.typeSession }}</td>
+                                <td>
+                                    &nbsp;&nbsp;<a class="edit" href="{{ path('app_evenements_edit', {'id': evenement.id}) }}"><i   class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp;&nbsp;
+                                    <a class="remove" href="{{ path('app_evenements_delete', {'id': evenement.id}) }}"><i   class="fa fa-trash" aria-hidden="true"></i></a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="10">no records found</td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                    
+                    
+                </tbody>
+            </table>
+            {% include "partials/_pagination.html.twig" %}
+        </div>
+    </section>
+    <script>
+        $(document).ready( function () {
+            $(".remove").click(function (event) {
+                event.preventDefault();
+                url = $(this).attr('href');
+                Swal.fire({
+                    text: "Voulez vous vraiment supprimer cet evenement ?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#82A800',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Supprimer'
+                }).then((result) => {
+                    if(result.isConfirmed) {
+                        document.location.href = url;
+                    }
+                })
+            });
+        });
+    </script>
+{% endblock %}

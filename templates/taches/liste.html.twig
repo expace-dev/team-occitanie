@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User index{% endblock %}
+{% if taches %}
+    {% set pageCount = taches.pages %}
+    {% set currentPage = taches.page %}
+{% endif %}
+
+
+{% block body %}
+    <section class="breadcrumbs">
+        <div class="container">
+            <ol>
+                <li><a href="index.html">Home</a></li>
+                <li>Blog</li>
+            </ol>
+            <h2>Blog</h2>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            {% if app.user.role == 'ROLE_USER' %}
+            <h2>Mes tâches</h2>
+            {% else %}
+            <h2>Liste des tâches</h2>    
+            {% endif %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Type de tâche</th>
+                        <th>Signalé le</th>
+                        <th>Délai</th>
+                        <th>Map</th>
+                        <th style="width:90px;">actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if taches %}
+                        {% for tache in taches.data %}
+                            <tr>
+                                <td>{{ tache.type }}</td>
+                                <td>{{ tache.createdAt|date('d-m-Y') }}</td>
+                                <td>{{ tache.delai|date('d-m-Y') }}</td>
+                                <td>{{ tache.map }}</td>
+                                <td>
+                                    &nbsp;&nbsp;<a class="edit" href="{{ path('app_taches_edit', {'id': tache.id}) }}"><i   class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp;&nbsp;
+                                    <a class="remove" href="{{ path('app_taches_delete', {'id': tache.id}) }}"><i   class="fa fa-trash" aria-hidden="true"></i></a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="10">no records found</td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                    
+                    
+                </tbody>
+            </table>
+            {% include "partials/_pagination.html.twig" %}
+        </div>
+    </section>
+    <script>
+        $(document).ready( function () {
+            $(".remove").click(function (event) {
+                event.preventDefault();
+                url = $(this).attr('href');
+                Swal.fire({
+                    text: "Voulez vous vraiment supprimer cette tâche ?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#82A800',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Supprimer'
+                }).then((result) => {
+                    if(result.isConfirmed) {
+                        document.location.href = url;
+                    }
+                })
+            });
+        });
+    </script>
+{% endblock %}

@@ -96,15 +96,191 @@ class ApplicationController extends AbstractController
             'evenements' => $evenements
         ]);
     }
-    #[Route('/application/tache-faite/{id}', name: 'app_application_validation'), IsGranted('ROLE_USER')]
+    #[Route('/application/validation/tache/{id}', name: 'app_application_validation'), IsGranted('ROLE_USER')]
     public function activate(Request $request, EntityManagerInterface $entityManager, TachesRepository $tachesRepository, Taches $tache): Response
     {
-        $tache->setStatut(false);
+        $entityManager->remove($tache);
         $entityManager->flush();
 
         $this->addFlash('success', 'Tache confirmé avec succès');
 
         return $this->redirectToRoute('app_application_index', [], Response::HTTP_SEE_OTHER);
 
+    }
+    #[Route('/gestion/evenements', name: 'app_evenements_index'), IsGranted('ROLE_USER')]
+    public function evenements(Request $request, EvenementsRepository $evenementsRepository): Response
+    {
+        $page = $request->query->getInt('page', 1);
+
+        
+        if ($this->getUser()->getRoles()[0] == 'ROLE_ADMIN') {
+            $evenements = $evenementsRepository->findEvenements($page, 15);
+        }
+        else {
+            $evenements = $evenementsRepository->findEvenementsAuteur($page, 15, $this->getUser());
+        }
+        
+
+        return $this->render('evenements/liste.html.twig', [
+            'evenements' => $evenements,
+        ]);
+
+    }
+    #[Route('/gestion/evenements/{id}/suppression', name: 'app_evenements_delete', methods: ['GET']), IsGranted('ROLE_USER')]
+    public function deleteEvenements(Request $request, Evenements $evenement, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->getUser()->getRoles()[0] === 'ROLE_USER') {
+            if ($evenement->getAuteur() !== $this->getUser()) {
+                $this->addFlash('error', 'Une erreur c\'est produite, veuillez réessayer !');
+                return $this->redirectToRoute('app_evenements_index', [], Response::HTTP_SEE_OTHER);
+            }
+        }
+
+        if ($evenement->getVisuel()) {
+            //unlink('/var/www/clients/client0/web2/web/public' . $evenement->getVisuel());
+        }
+
+        $entityManager->remove($evenement);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Votre evenement a bien été supprimé');
+
+        return $this->redirectToRoute('app_evenements_index', [], Response::HTTP_SEE_OTHER);
+    }
+    #[Route('/gestion/evenements/{id}/edition', name: 'app_evenements_edit', methods: ['GET', 'POST']), IsGranted('ROLE_USER')]
+    public function editEvenements(Request $request, Evenements $evenement, EntityManagerInterface $entityManager): Response
+    {
+
+        if ($this->getUser()->getRoles()[0] === 'ROLE_USER') {
+            if ($evenement->getAuteur() !== $this->getUser()) {
+                $this->addFlash('error', 'Une erreur c\'est produite, veuillez réessayer !');
+                return $this->redirectToRoute('app_evenements_index', [], Response::HTTP_SEE_OTHER);
+            }
+        }
+
+        $form = $this->createForm(EvenementsFormType::class, $evenement);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $date = $form->get('dateEvents')->getData();
+            $dateCreate = new DateTime($date);
+            $evenement->setDateEvents($dateCreate);
+
+
+            // Si on réceptionne une image d'illustration
+            if ($form->get('visuel')->getData()) {
+                // On récupère l'image
+                $fichier = $form->get('visuel')->getData();
+                // On récupère le répertoire de destination
+                $directory = 'events_directory';
+                // On supprime l'ancienne image d'illustration
+                //unlink($evenement->getVisuel());
+                // Puis on upload la nouvelle image et on ajoute cela à  l'article
+                $evenement->setVisuel('/images/blog/' .$this->uploadService->send($fichier, $directory));
+            }
+
+            $this->addFlash('success', 'Votre evenement a bien été modifié');
+
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_evenements_index', [], Response::HTTP_SEE_OTHER);
+        }
+        if ($form->isSubmitted() && !$form->isValid()) {
+            $this->addFlash('error', 'Des erreurs subsistent, veuillez vérifier votre saisie');
+        }
+
+        return $this->render('evenements/edit.html.twig', [
+            'evenement' => $evenement,
+            'form' => $form,
+            'dateEvents' => $evenement->getDateEvents()
+        ]);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    #[Route('/gestion/taches', name: 'app_taches_index'), IsGranted('ROLE_USER')]
+    public function taches(Request $request, TachesRepository $tachesRepository): Response
+    {
+        $page = $request->query->getInt('page', 1);
+
+        
+        if ($this->getUser()->getRoles()[0] == 'ROLE_ADMIN') {
+            $taches = $tachesRepository->findTaches($page, 15);
+        }
+        else {
+            $taches = $tachesRepository->findTachesAuteur($page, 15, $this->getUser());
+        }
+        
+
+        return $this->render('taches/liste.html.twig', [
+            'taches' => $taches,
+        ]);
+
+    }
+    #[Route('/gestion/taches/{id}/suppression', name: 'app_taches_delete', methods: ['GET']), IsGranted('ROLE_USER')]
+    public function deleteTaches(Request $request, Taches $taches, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->getUser()->getRoles()[0] === 'ROLE_USER') {
+            if ($taches->getAuteur() !== $this->getUser()) {
+                $this->addFlash('error', 'Une erreur c\'est produite, veuillez réessayer !');
+                return $this->redirectToRoute('app_taches_index', [], Response::HTTP_SEE_OTHER);
+            }
+        }
+
+
+        $entityManager->remove($taches);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Votre tache a bien été supprimé');
+
+        return $this->redirectToRoute('app_taches_index', [], Response::HTTP_SEE_OTHER);
+    }
+    #[Route('/gestion/taches/{id}/edition', name: 'app_taches_edit', methods: ['GET', 'POST']), IsGranted('ROLE_USER')]
+    public function editTaches(Request $request, Taches $taches, EntityManagerInterface $entityManager): Response
+    {
+
+        if ($this->getUser()->getRoles()[0] === 'ROLE_USER') {
+            if ($taches->getAuteur() !== $this->getUser()) {
+                $this->addFlash('error', 'Une erreur c\'est produite, veuillez réessayer !');
+                return $this->redirectToRoute('app_taches_index', [], Response::HTTP_SEE_OTHER);
+            }
+        }
+
+        $form = $this->createForm(TachesFormType::class, $taches);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $date = $form->get('delai')->getData();
+            $dateCreate = new DateTime($date);
+            $taches->setDelai($dateCreate);
+
+
+
+            $this->addFlash('success', 'Votre tache a bien été modifié');
+
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_taches_index', [], Response::HTTP_SEE_OTHER);
+        }
+        if ($form->isSubmitted() && !$form->isValid()) {
+            $this->addFlash('error', 'Des erreurs subsistent, veuillez vérifier votre saisie');
+        }
+
+        return $this->render('taches/edit.html.twig', [
+            'taches' => $taches,
+            'form' => $form,
+            'delai' => $taches->getDelai()
+        ]);
     }
 }

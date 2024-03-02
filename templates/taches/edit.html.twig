@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ApplicationController!{% endblock %}
+
+{% block body %}
+    <!-- ======= Breadcrumbs ======= -->
+    <section class="breadcrumbs">
+        <div class="container">
+            <ol>
+                <li><a href="index.html">Home</a></li>
+                <li>Blog</li>
+            </ol>
+            <h2>Blog</h2>
+        </div>
+    </section><!-- End Breadcrumbs -->
+
+    <section class="auth">
+        <div class="container">
+            <div class="row justify-content-center">
+                <h2 data-aos="fade-up" data-aos-delay="100">Modification</h2>
+                <div class="info-box" data-aos="fade-up" data-aos-delay="400">
+                    {{ form_start(form) }}
+                        <div class="row">
+                            <div class="col-lg-12">
+                            {{ form_label(form.type) }}
+                            {{ form_widget(form.type) }}
+                            {{ form_errors(form.type) }}
+                            </div>
+                            <div class="col-lg-6">
+                            {{ form_label(form.delai) }}
+                            {{ form_widget(form.delai, {'value': delai|date('Y/m/d')}) }}
+                            {{ form_errors(form.delai) }}
+                            </div>
+                            <div class="col-lg-6">
+                            {{ form_label(form.map) }}
+                            <div class="custom-select">
+                                {{ form_widget(form.map) }}
+                            </div>
+                            {{ form_errors(form.map) }}
+                            </div>
+                            <div class="col-lg-12 text-start">
+                                <input class="btn btn-primary mt-2" type="submit" value="Enregistrer les modifications">
+                            </div>
+                        </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        $(document).ready( function () {
+            $.datetimepicker.setLocale('fr');
+            $('#taches_form_delai').datetimepicker(
+                {
+                    timepicker:false,
+                    minDate:'0',//yesterday is minimum date(for today use 0 or -1970/01/01)
+                    format:'Y/m/d',
+                },
+            );
+        });
+    </script>
+
+{% endblock %}

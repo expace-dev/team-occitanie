@@ -9,6 +9,7 @@ use App\Repository\ArticlesRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 
 class HomeController extends AbstractController
 {
@@ -24,6 +25,22 @@ class HomeController extends AbstractController
             'articles' => $articles,
             'photos' => $photos,
             'membres' => $membres
+        ]);
+    }
+
+    #[Route('/portfolio', name: 'app_portfolio')]
+    public function portfolio(Request $request, PhotosRepository $photosRepository, UsersRepository $usersRepository): Response
+    {
+
+        $page = $request->query->getInt('page', 1);
+
+        
+            $photos = $photosRepository->findPhotos($page, 15);
+
+            dd($request);
+
+        return $this->render('home/portfolio.html.twig', [
+            'photos' => $photos
         ]);
     }
 

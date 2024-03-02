@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ApplicationController!{% endblock %}
+
+{% block body %}
+    <!-- ======= Breadcrumbs ======= -->
+    <section class="breadcrumbs">
+        <div class="container">
+            <ol>
+                <li><a href="index.html">Home</a></li>
+                <li>Blog</li>
+            </ol>
+            <h2>Blog</h2>
+        </div>
+    </section><!-- End Breadcrumbs -->
+
+    <section class="auth">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="info-box" data-aos="fade-up" data-aos-delay="400">
+                    {{ form_start(form) }}
+                        <div class="row">
+                            <div class="col-lg-12">
+                                {{ form_label(form.description) }}
+                                {{ form_widget(form.description) }}
+                                {{ form_errors(form.description) }}
+                            </div>
+                            <div class="col-lg-6">
+                                {{ form_label(form.dateEvents) }}
+                                {{ form_widget(form.dateEvents, {'value': dateEvents|date('Y/m/d H:i')}) }}
+                                {{ form_errors(form.dateEvents) }}
+                            </div>
+                            <div class="col-lg-6">
+                                {{ form_label(form.typeSession) }}
+                                <div class="custom-select">
+                                    {{ form_widget(form.typeSession) }}
+                                </div>
+                                {{ form_errors(form.typeSession) }}
+                            </div>
+                            <div class="col-lg-12">
+                                {{ form_label(form.visuel) }}
+                                {{ form_widget(form.visuel) }}
+                                {{ form_errors(form.visuel) }}
+                            </div>
+                            <div class="col-lg-12 text-start">
+                                <input class="btn btn-primary mt-2" type="submit" value="Confirmer la modification">
+                            </div>
+                        </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        $(document).ready( function () {
+            $.datetimepicker.setLocale('fr');
+            $('#evenements_form_dateEvents').datetimepicker(
+                {
+                    minDate:'0',//yesterday is minimum date(for today use 0 or -1970/01/01)
+                    format:'Y/m/d H:i',
+                    step:15,
+                },
+            );
+        });
+    </script>
+
+{% endblock %}

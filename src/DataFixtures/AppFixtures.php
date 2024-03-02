@@ -8,7 +8,9 @@ use App\Entity\Users;
 use App\Entity\Articles;
 use App\Entity\Categories;
 use App\Entity\Commentaires;
+use App\Entity\Evenements;
 use App\Entity\Photos;
+use App\Entity\Taches;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -148,6 +150,41 @@ class AppFixtures extends Fixture
 
             $manager->persist($photo);
             $photos[] = $photo;
+        }
+
+        $evenements = [];
+        $typesConvoi = ['Convoi perso', 'Trucker MP'];
+        for ($i=1; $i<=500; $i++) {
+
+            $evenement = new Evenements();
+
+            $evenement->setAuteur($faker->randomElement($users))
+                    ->setVisuel($faker->imageUrl())
+                    ->setCreatedAt($faker->dateTime())
+                    ->setDateEvents($faker->dateTime())
+                    ->setTypeSession($faker->randomElement($typesConvoi))
+                    ->setDescription($faker->paragraph(1))
+                    ->setStatut($faker->randomElement($statut));
+
+            $manager->persist($evenement);
+            $evenements[] = $evenement;
+        }
+
+        $taches = [];
+        $mapsType = ['Castelnaud', 'Pallegney'];
+        for ($i=1; $i<=500; $i++) {
+
+            $tache = new Taches();
+
+            $tache->setAuteur($faker->randomElement($users))
+                    ->setType($faker->paragraph(1))
+                    ->setCreatedAt($faker->dateTime())
+                    ->setDelai($faker->dateTime())
+                    ->setMap($faker->randomElement($mapsType))
+                    ->setStatut($faker->randomElement($statut));
+
+            $manager->persist($tache);
+            $taches[] = $tache;
         }
 
 

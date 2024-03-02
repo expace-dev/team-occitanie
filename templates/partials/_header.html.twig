@@ -4,14 +4,14 @@
       <ul>
         <li><a href="{{ path('app_home') }}">Accueil</a></li>
         <li><a href="{{ path('app_blog_index') }}">Publications</a></li>
-        <li><a href="index.html">Portfolio</a></li>
+        <li><a href="{{ path('app_portfolio') }}">Portfolio</a></li>
         <li><a href="{{path('app_home')}}#team">Team</a></li>
         {% if app.user %}
           <li class="dropdown has-dropdown"><a href="#"><span>Mon compte</span> <i class="bi bi-chevron-down"></i></a>
             <ul class="dd-box-shadow">
               <li><a href="{{ path('app_application_index') }}">Mon application</a></li>
-              <li><a href="{{ path('app_application_index') }}">Mes evenements</a></li>
-              <li><a href="{{ path('app_application_index') }}">Gérer mes taches</a></li>
+              <li><a href="{{ path('app_evenements_index') }}">Mes evenements</a></li>
+              <li><a href="{{ path('app_taches_index') }}">Gérer mes taches</a></li>
               <li><a href="{{ path('app_photos_user') }}">Gérer mes photos</a></li>
               <li><a href="{{ path('app_photos_ajouter') }}">Ajouter une photo</a></li>
               {% if app.user.role == 'ROLE_EDIT' %}
