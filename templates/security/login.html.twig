@@ -1,23 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}Se connecter{% endblock %}
 
 {% block body %}
 
-<!-- ======= Breadcrumbs ======= -->
-<section class="breadcrumbs">
-    <div class="container">
-        <ol>
-            <li><a href="index.html">Home</a></li>
-            <li>Blog</li>
-        </ol>
-        <h2>Blog</h2>
-    </div>
-</section><!-- End Breadcrumbs -->
+{{ component('breadcrumbs', {'title': block('title')}) }}
 
 <section class="auth">
     <div class="container">
-        <h2>Se connecter</h2>
         <div class="row justify-content-center">
             <div class="info-box" style="width: 600px;">
                 {% if error %}

@@ -1,0 +1,38 @@
+ <section class="breadcrumbs">
+    <div class="container">
+        <ol id="top-level-breadcrumb-list">
+            <li><a href="index.html">Home</a></li>
+        </ol>
+        <h2>{{ this.title }}</h2>
+    </div>
+</section>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // CONSTRUI LE TABLEAU DE CHEMINS DEPUIS L URL:
+        const path = document.location.pathname;
+        console.log(path);
+        const partialPathList = path.split("/")
+        // supprime le premier élément du tableau
+        partialPathList.shift();
+        console.log(partialPathList);
+        // CONSTRUI LES ELEMENTS DU BREADCRUMB:
+        const topLevelBreadCrumList = document.querySelector("#top-level-breadcrumb-list")
+        // parcour les morceaux de chemins
+        for(partialPath of partialPathList) {
+            // créé un nouvel élément du breadcrumb
+            const li = document.createElement("li")
+
+            // si c'est le dernier élément du chemin
+            // on lui ajoute les attributs "active"
+            if(partialPath === partialPathList[partialPathList.length - 1]) {
+                li.classList.add("active")
+                li.setAttribute("aria-current", "page")
+            }
+            // ajoute le texte dans le breadcrumb
+            li.textContent = partialPath
+            // insère le breadcrumb dans la liste
+            topLevelBreadCrumList.appendChild(li)
+        }
+    });
+</script>

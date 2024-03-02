@@ -6,10 +6,11 @@ use App\Entity\Contact;
 use App\Repository\UsersRepository;
 use App\Repository\PhotosRepository;
 use App\Repository\ArticlesRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use WhiteOctober\BreadcrumbsBundle\Model\Breadcrumbs;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 
 class HomeController extends AbstractController
 {
@@ -29,7 +30,7 @@ class HomeController extends AbstractController
     }
 
     #[Route('/portfolio', name: 'app_portfolio')]
-    public function portfolio(Request $request, PhotosRepository $photosRepository, UsersRepository $usersRepository): Response
+    public function portfolio(Request $request, PhotosRepository $photosRepository, UsersRepository $usersRepository, Breadcrumbs $breadcrumbs): Response
     {
 
         $page = $request->query->getInt('page', 1);
@@ -37,10 +38,11 @@ class HomeController extends AbstractController
         
             $photos = $photosRepository->findPhotos($page, 15);
 
-            dd($request);
+            //dd($request);
 
         return $this->render('home/portfolio.html.twig', [
-            'photos' => $photos
+            'photos' => $photos,
+            'breadcrumbs' =>$breadcrumbs
         ]);
     }
 
