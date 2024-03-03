@@ -118,7 +118,7 @@
                 </thead>
                 <tbody>
                     {% if evenements %}
-                        {% for evenement in evenements.data %}
+                        {% for evenement in evenements %}
                             <tr>
                             <td>
                                 {% if evenement.visuel %}
@@ -145,11 +145,6 @@
                     {% endif %}
                 </tbody>
             </table>
-            {% if evenements %}
-                {% set pageCount = evenements.pages %}
-                {% set currentPage = evenements.page %}
-                {% include "partials/_pagination.html.twig" %}
-            {% endif %}
             
         </div>
     </section>

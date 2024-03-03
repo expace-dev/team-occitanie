@@ -90,6 +90,27 @@ class EvenementsRepository extends ServiceEntityRepository
 
     }
 
+    public function findEvenementsSupNow() {
+        
+
+        $result = [];
+
+        $query = $this->getEntityManager()->createQueryBuilder()
+            ->select('a')
+            ->from('App\Entity\Evenements', 'a')
+            ->andWhere('a.dateEvents >= :val')
+            ->setParameter('val', date('Y-m-d H:i:s'))
+            ->orderBy('a.dateEvents', 'ASC');
+
+        $data = $query->getQuery()->getResult();
+        
+        
+
+
+        return $result;
+
+    }
+
     //    /**
     //     * @return Evenements[] Returns an array of Evenements objects
     //     */
