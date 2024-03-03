@@ -96,7 +96,7 @@ class EvenementsRepository extends ServiceEntityRepository
                 ->andWhere('e.dateEvents >= :val')
                 ->setParameter('val', $value)
                 ->getQuery()
-                ->getOneOrNullResult()
+                ->getResult()
             ;
         }
 
