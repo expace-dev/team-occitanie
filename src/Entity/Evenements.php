@@ -32,9 +32,6 @@ class Evenements
     #[ORM\Column(length: 255)]
     private ?string $description = null;
 
-    #[ORM\Column]
-    private ?bool $statut = null;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -112,15 +109,4 @@ class Evenements
         return $this;
     }
 
-    public function isStatut(): ?bool
-    {
-        return $this->statut;
-    }
-
-    public function setStatut(bool $statut): static
-    {
-        $this->statut = $statut;
-
-        return $this;
-    }
 }
