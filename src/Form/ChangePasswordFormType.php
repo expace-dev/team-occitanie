@@ -43,7 +43,10 @@ class ChangePasswordFormType extends AbstractType
                 'autocomplete' => 'off',
                 'class' => "gen"
             ],
-            'mapped' => false
+            'mapped' => false,
+            'label_attr' => [
+                'class' => 'col-lg-12'
+            ]
         ])
         ;
     }
