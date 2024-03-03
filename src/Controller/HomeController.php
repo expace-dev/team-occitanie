@@ -2,14 +2,12 @@
 
 namespace App\Controller;
 
-use App\Entity\Contact;
 use App\Repository\UsersRepository;
 use App\Repository\PhotosRepository;
 use App\Repository\ArticlesRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use WhiteOctober\BreadcrumbsBundle\Model\Breadcrumbs;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HomeController extends AbstractController
@@ -17,9 +15,9 @@ class HomeController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function index(ArticlesRepository $articlesRepository, PhotosRepository $photosRepository, UsersRepository $usersRepository): Response
     {
-            $articles = $articlesRepository->findBy(['active' => true], ['id' => 'ASC',], 3);
-            $photos = $photosRepository->findBy(['statut' => true], ['id' => 'ASC',], 9);
-            $membres = $usersRepository->findAll();
+        $articles = $articlesRepository->findBy(['active' => true], ['id' => 'ASC',], 3);
+        $photos = $photosRepository->findBy(['statut' => true], ['id' => 'ASC',], 9);
+        $membres = $usersRepository->findAll();
 
 
         return $this->render('home/index.html.twig', [
@@ -30,7 +28,7 @@ class HomeController extends AbstractController
     }
 
     #[Route('/portfolio', name: 'app_portfolio')]
-    public function portfolio(Request $request, PhotosRepository $photosRepository, UsersRepository $usersRepository, Breadcrumbs $breadcrumbs): Response
+    public function portfolio(Request $request, PhotosRepository $photosRepository, UsersRepository $usersRepository): Response
     {
 
         $page = $request->query->getInt('page', 1);
@@ -42,7 +40,6 @@ class HomeController extends AbstractController
 
         return $this->render('home/portfolio.html.twig', [
             'photos' => $photos,
-            'breadcrumbs' =>$breadcrumbs
         ]);
     }
 

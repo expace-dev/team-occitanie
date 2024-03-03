@@ -21,13 +21,10 @@ use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
 class RegistrationController extends AbstractController
 {
-    private EmailVerifier $emailVerifier;
-    private UploadService $uploadService;
+    
 
-    public function __construct(EmailVerifier $emailVerifier, UploadService $uploadService)
+    public function __construct(private EmailVerifier $emailVerifier, private UploadService $uploadService)
     {
-        $this->emailVerifier = $emailVerifier;
-        $this->uploadService = $uploadService;
     }
 
     #[Route('/nous-rejoindre', name: 'app_register')]
