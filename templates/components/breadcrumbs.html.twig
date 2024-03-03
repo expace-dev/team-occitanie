@@ -6,13 +6,15 @@
         <h2>{{ this.title }}</h2>
     </div>
 </section>
-
-<div class="container mt-5">
-    <div class="alert alert-warning" role="alert">
-        <i class="fa-solid fa-triangle-exclamation"></i> This is a warning alert—check it out!
-    </div>
-</div>
-
+{% if app.user %}
+    {% if app.user.isVerified == false %}
+        <div class="container mt-5">
+            <div class="alert alert-warning" role="alert">
+                <i style="font-size:32px; margin-right:30px;" class="fa-solid fa-triangle-exclamation"></i>Attention vous devez activer votre compte, veuillez vérifier vos email !
+            </div>
+        </div>
+    {% endif %}
+{% endif %}
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         // CONSTRUI LE TABLEAU DE CHEMINS DEPUIS L URL:

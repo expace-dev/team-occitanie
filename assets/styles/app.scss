@@ -153,3 +153,10 @@ div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm {
   --bs-tooltip-bg: #82A800;
   --bs-tooltip-color: #fff;
 }
+
+.alert-warning {
+  background: darkorange;
+  color: white;
+  border-radius: 0;
+  border: 0;
+}
