@@ -58,6 +58,10 @@ class ApplicationController extends AbstractController
 
             $this->addFlash('sucess', 'Votre évènement a bien été ajouté');
 
+            $url = $this->generateUrl('app_application_index', [
+                '_fragment' => 'ets'
+            ]);
+
             return $this->redirectToRoute('app_application_index', [], Response::HTTP_SEE_OTHER);
             
         }
