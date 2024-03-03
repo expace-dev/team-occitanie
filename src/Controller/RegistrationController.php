@@ -27,7 +27,7 @@ class RegistrationController extends AbstractController
     {
     }
 
-    #[Route('/nous-rejoindre', name: 'app_register')]
+    #[Route('/inscription', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, AppAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
     {
         $user = new Users();

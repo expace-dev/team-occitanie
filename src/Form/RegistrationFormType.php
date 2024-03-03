@@ -32,6 +32,9 @@ class RegistrationFormType extends AbstractType
                 'label_attr' => [
                     'class' => 'col-lg-12'
                 ],
+                'attr' => [
+                    'autocomplete' => 'off',
+                ],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Veuillez entrer un pseudo',
