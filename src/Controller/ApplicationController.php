@@ -98,12 +98,14 @@ class ApplicationController extends AbstractController
 
         }
 
+        $maintenant = new DateTime();
+
         return $this->render('application/index.html.twig', [
             'tache' => $tache,
             'formTache' => $formTache,
             'taches' => $tachesRepository->findBy(['statut' => true]),
             'formEvents' => $formEvents,
-            'evenements' => $evenementsRepository->findEvenementsSupNow()
+            'evenements' => $evenementsRepository->findOneBySomeField($maintenant)
         ]);
     }
     #[Route('/application/validation/tache/{id}', name: 'app_application_validation'), IsGranted('ROLE_USER')]
