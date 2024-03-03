@@ -103,7 +103,7 @@ class ApplicationController extends AbstractController
             'formTache' => $formTache,
             'taches' => $tachesRepository->findBy(['statut' => true]),
             'formEvents' => $formEvents,
-            'evenements' => $evenements
+            'evenements' => $evenementsRepository->findBy(['dateEvents' >= new DateTime('now')])
         ]);
     }
     #[Route('/application/validation/tache/{id}', name: 'app_application_validation'), IsGranted('ROLE_USER')]
