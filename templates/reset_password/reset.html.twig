@@ -11,21 +11,10 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="info-box" style="width: 700px;" data-aos="fade-up" data-aos-delay="100">
-                    {{ form_start(resetForm) }}
-                        <div class="col-lg-12">
-                            {{ form_label(resetForm.plainPassword.first) }}
-                            {{ form_widget(resetForm.plainPassword.first) }}
-                            {{ form_errors(resetForm.plainPassword.first) }}
-                        </div>
-                        <div class="col-lg-12">
-                            {{ form_label(resetForm.plainPassword.second) }}
-                            {{ form_widget(resetForm.plainPassword.second) }}
-                            {{ form_errors(resetForm.plainPassword.second) }}
-                        </div>
-                        <div class="text-center mt-4">
-                            <input class="btn btn-primary" type="submit" name="submit" value="Réinitialiser">
-                        </div>
-                    {{ form_end(resetForm) }}
+                    {{ component('resetPassword', {
+                        user: user.id ? user: null,
+                        form: form
+                    }) }}
                 </div>
             </div>
         </div>
