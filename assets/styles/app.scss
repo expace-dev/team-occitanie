@@ -160,3 +160,7 @@ div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm {
   border-radius: 0;
   border: 0;
 }
+
+.form-control.is-invalid:focus {
+  box-shadow: none;
+}
