@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ApplicationController!{% endblock %}
+{% block title %}Editer une tâche{% endblock %}
 
 {% block body %}
     {{ component('breadcrumbs', {'title': block('title')}) }}
@@ -8,8 +8,7 @@
     <section class="auth">
         <div class="container">
             <div class="row justify-content-center">
-                <h2 data-aos="fade-up" data-aos-delay="100">Modification</h2>
-                <div class="info-box" data-aos="fade-up" data-aos-delay="400">
+                <div class="info-box" data-aos="fade-up" data-aos-delay="100">
                     {{ form_start(form) }}
                         <div class="row">
                             <div class="col-lg-12">
