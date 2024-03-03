@@ -67,6 +67,8 @@ class RegistrationController extends AbstractController
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
 
+            $this->addFlash('success', 'Nous venons de vous envoyer un email afin de valider votre inscription');
+
             
             // do anything else you need here, like send an email
 
