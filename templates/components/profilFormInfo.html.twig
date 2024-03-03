@@ -1,0 +1,31 @@
+<div {{ attributes }} >
+    {{ form_start(formUserInfo, {attr: {'data-model': '*'}}) }}
+        <div class="row">
+            <div class="col-lg-6">
+                {{ form_label(formUserInfo.poste) }}
+                <div class="custom-select">
+                    {{ form_widget(formUserInfo.poste) }}
+                </div>
+                {{ form_errors(formUserInfo.poste) }}
+            </div>
+            <div class="col-lg-6">
+                {{ form_label(formUserInfo.username) }}
+                {{ form_widget(formUserInfo.username) }}
+                {{ form_errors(formUserInfo.username) }}
+            </div>
+            <div class="col-lg-12">
+                {{ form_label(formUserInfo.description) }}
+                {{ form_widget(formUserInfo.description) }}
+                {{ form_errors(formUserInfo.description) }}
+            </div>
+            <div class="col-lg-12 mt-3">
+                {{ form_label(formUserInfo.avatar) }}
+                {{ form_widget(formUserInfo.avatar) }}
+                {{ form_errors(formUserInfo.avatar) }}
+            </div>
+            <div class="col-lg-12 text-start">
+                <input class="btn btn-primary mt-2" type="submit" value="Enregistrer">
+            </div>
+        </div>
+    {{ form_end(formUserInfo) }}
+</div>
