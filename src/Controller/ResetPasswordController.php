@@ -73,7 +73,7 @@ class ResetPasswordController extends AbstractController
     /**
      * Validates and process the reset URL that the user clicked in their email.
      */
-    #[Route('/reinitialiser/{token}', name: 'app_reset_password')]
+    #[Route('/reinitialisation/{token}', name: 'app_reset_password')]
     public function reset(Request $request, UserPasswordHasherInterface $passwordHasher, TranslatorInterface $translator, ?string $token = null): Response
     {
         if ($token) {
@@ -163,7 +163,7 @@ class ResetPasswordController extends AbstractController
         $email = (new TemplatedEmail())
             ->from(new Address('admin@team-occitanie.fr', 'Team Occitanie'))
             ->to($user->getEmail())
-            ->subject('Ta demande de réinitialisation')
+            ->subject('Changement d\'identifiants')
             ->htmlTemplate('reset_password/email.html.twig')
             ->context([
                 'resetToken' => $resetToken,
