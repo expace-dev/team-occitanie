@@ -90,7 +90,11 @@ class ApplicationController extends AbstractController
 
             $this->addFlash('sucess', 'Votre tâche a bien été ajouté');
 
-            return $this->redirectToRoute('app_application_index', [], Response::HTTP_SEE_OTHER);
+            $url = $this->generateUrl('app_application_index', [
+                '_fragment' => 'farming'
+            ]);
+
+            return $this->redirect($url, Response::HTTP_SEE_OTHER);
 
         }
 
