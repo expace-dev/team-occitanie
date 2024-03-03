@@ -90,11 +90,14 @@ class EvenementsRepository extends ServiceEntityRepository
 
     }
 
-    public function findOneBySomeField($value): ?Evenements
+    //     * @return Evenements[] Returns an array of Evenements objects
+    //     */
+        public function findByExampleField($value): array
         {
             return $this->createQueryBuilder('e')
-                ->andWhere('e.dateEvents >= :val')
-                ->setParameter('val', $value)
+            ->andWhere('e.dateEvents >= :val')
+            ->setParameter('val', $value)
+                ->orderBy('e.dateEvents', 'ASC')
                 ->getQuery()
                 ->getResult()
             ;
