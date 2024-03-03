@@ -19,7 +19,7 @@ class ChangePasswordFormType extends AbstractType
         $builder
         ->add('plainPassword', PasswordType::class, [
             'always_empty' => false,
-            'label' => 'Mot de passe*',
+            'label' => 'Mot de passe',
             'constraints' => [
                 new Regex([
                     'pattern' => '/[a-z]/',

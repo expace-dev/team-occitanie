@@ -56,7 +56,7 @@ class ApplicationController extends AbstractController
             $entityManager->persist($evenement);
             $entityManager->flush();
 
-            $this->addFlash('sucess', 'Votre évènement a bien été enregistré');
+            $this->addFlash('sucess', 'Votre évènement a bien été ajouté');
 
             return $this->redirectToRoute('app_application_index', [], Response::HTTP_SEE_OTHER);
             
@@ -83,6 +83,8 @@ class ApplicationController extends AbstractController
 
             $entityManager->persist($tache);
             $entityManager->flush();
+
+            $this->addFlash('sucess', 'Votre tâche a bien été ajouté');
 
             return $this->redirectToRoute('app_application_index', [], Response::HTTP_SEE_OTHER);
 
