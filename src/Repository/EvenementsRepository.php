@@ -92,7 +92,7 @@ class EvenementsRepository extends ServiceEntityRepository
 
     //     * @return Evenements[] Returns an array of Evenements objects
     //     */
-        public function findByExampleField($value): array
+        public function findFuturEvents($value): array
         {
             return $this->createQueryBuilder('e')
             ->andWhere('e.dateEvents >= :val')
