@@ -62,7 +62,7 @@ class ApplicationController extends AbstractController
                 '_fragment' => 'ets'
             ]);
 
-            return $this->redirectToRoute('app_application_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirect($url, Response::HTTP_SEE_OTHER);
             
         }
         
