@@ -11,6 +11,7 @@ use App\Entity\Commentaires;
 use App\Entity\Evenements;
 use App\Entity\Photos;
 use App\Entity\Taches;
+use App\Services\UploadService;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -18,11 +19,9 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class AppFixtures extends Fixture
 {
 
-    private $encoder;
 
-    public function __construct(UserPasswordHasherInterface $encoder)
+    public function __construct(private UserPasswordHasherInterface $encoder, private UploadService $uploadService)
     {
-        $this->encoder = $encoder;
     }
     public function load(ObjectManager $manager): void
     {
@@ -163,8 +162,7 @@ class AppFixtures extends Fixture
                     ->setCreatedAt($faker->dateTime())
                     ->setDateEvents($faker->dateTime())
                     ->setTypeSession($faker->randomElement($typesConvoi))
-                    ->setDescription($faker->paragraph(1))
-                    ->setStatut($faker->randomElement($statut));
+                    ->setDescription($faker->paragraph(1));
 
             $manager->persist($evenement);
             $evenements[] = $evenement;
