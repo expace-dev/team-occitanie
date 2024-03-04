@@ -10,10 +10,12 @@
             <div class="section-header">
             </div>
             <div class="info-box" data-aos="fade-up" data-aos-delay="100">
+                {{ form_start(registrationForm) }}
                     {{ component('registration', {
                             user: user.id ? user: null,
                             form: form
-                    }) }}
+                        }) }}
+                {{ form_end(registrationForm) }}
             </div>
         </div>
     </div>

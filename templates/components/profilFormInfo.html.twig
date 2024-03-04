@@ -1,31 +1,31 @@
 <div {{ attributes }} >
-    {{ form_start(formUserInfo, {attr: {'data-model': '*'}}) }}
+    {{ form_start(form, {attr: {'data-model': '*'}}) }}
         <div class="row">
             <div class="col-lg-6">
-                {{ form_label(formUserInfo.poste) }}
-                <div class="custom-select">
-                    {{ form_widget(formUserInfo.poste) }}
+                {{ form_label(form.poste) }}
+                <div class="custom-select" data-live-ignore="true">
+                    {{ form_widget(form.poste) }}
                 </div>
-                {{ form_errors(formUserInfo.poste) }}
+                {{ form_errors(form.poste) }}
             </div>
             <div class="col-lg-6">
-                {{ form_label(formUserInfo.username) }}
-                {{ form_widget(formUserInfo.username) }}
-                {{ form_errors(formUserInfo.username) }}
+                {{ form_label(form.username) }}
+                {{ form_widget(form.username) }}
+                {{ form_errors(form.username) }}
             </div>
             <div class="col-lg-12">
-                {{ form_label(formUserInfo.description) }}
-                {{ form_widget(formUserInfo.description) }}
-                {{ form_errors(formUserInfo.description) }}
+                {{ form_label(form.description) }}
+                {{ form_widget(form.description) }}
+                {{ form_errors(form.description) }}
             </div>
             <div class="col-lg-12 mt-3">
-                {{ form_label(formUserInfo.avatar) }}
-                {{ form_widget(formUserInfo.avatar) }}
-                {{ form_errors(formUserInfo.avatar) }}
+                {{ form_label(form.avatar) }}
+                {{ form_widget(form.avatar) }}
+                {{ form_errors(form.avatar) }}
             </div>
             <div class="col-lg-12 text-start">
                 <input class="btn btn-primary mt-2" type="submit" value="Enregistrer">
             </div>
         </div>
-    {{ form_end(formUserInfo) }}
+    {{ form_end(form) }}
 </div>

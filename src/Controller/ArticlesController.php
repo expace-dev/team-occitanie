@@ -46,7 +46,7 @@ class ArticlesController extends AbstractController
         $page = $request->query->getInt('page', 1);
 
         
-        if ($this->getUser()->getRoles()[0] == 'ROLE_ADMIN') {
+        if ($this->getUser()->getRoles()[0] == 'ROLE_ADMIN' or $this->getUser()->getRoles()[0] == 'ROLE_MODO') {
             $articles = $articlesRepository->findArticles($page, 15);
         }
         else {
@@ -264,6 +264,13 @@ class ArticlesController extends AbstractController
                 return $this->redirectToRoute('app_admin_publi_index', [], Response::HTTP_SEE_OTHER);
             }
         }
+
+        if ($this->getUser()->getRoles()[0] === 'ROLE_MODO') {
+            $this->addFlash('error', 'Vous n\'avez pas accès à cette fonction');
+            return $this->redirectToRoute('app_admin_publi_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+
 
         $entityManager->remove($article);
         $entityManager->flush();

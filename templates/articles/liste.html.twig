@@ -1,15 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Publication{% endblock %}
+{% block title %}Publications{% endblock %}
 {% set pageCount = articles.pages %}
 {% set currentPage = articles.page %}
 {% block body %}
 {{ component('breadcrumbs', {'title': block('title')}) }}    <section>
-        <div class="container">
+        <div class="container" data-aos="fade-up" data-aos-delay="100">
             <h2>Liste des publications</h2>
-            <p>
-                <a href="{{ path('app_admin_categories_index') }}" class="btn btn-success">Gérer les catégories</a>
-            </p>
+            {% if app.user.role == 'ROLE_ADMIN' %}
+                <p>
+                    <a href="{{ path('app_admin_categories_index') }}" class="btn btn-success">Gérer les catégories</a>
+                </p>   
+            {% endif %}
             <table>
                 <thead>
                     <tr>
