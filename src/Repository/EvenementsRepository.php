@@ -56,7 +56,7 @@ class EvenementsRepository extends ServiceEntityRepository
 
     }
 
-    public function findEvenementsAuteur($page, $limit = 15, $user) {
+    public function findEvenementsAuteur($page, $user, $limit = 15) {
         $limit = abs($limit);
 
         $result = [];

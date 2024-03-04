@@ -55,7 +55,7 @@ class TachesRepository extends ServiceEntityRepository
 
     }
 
-    public function findTachesAuteur($page, $limit = 15, $user) {
+    public function findTachesAuteur($page, $user, $limit = 15) {
         $limit = abs($limit);
 
         $result = [];

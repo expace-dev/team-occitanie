@@ -50,7 +50,7 @@ class ArticlesController extends AbstractController
             $articles = $articlesRepository->findArticles($page, 15);
         }
         else {
-            $articles = $articlesRepository->findArticlesAuteur($page, 15, $this->getUser());
+            $articles = $articlesRepository->findArticlesAuteur($page, $this->getUser(), 15);
         }
         
 

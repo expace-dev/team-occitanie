@@ -129,7 +129,7 @@ class ApplicationController extends AbstractController
             $evenements = $evenementsRepository->findEvenements($page, 15);
         }
         else {
-            $evenements = $evenementsRepository->findEvenementsAuteur($page, 15, $this->getUser());
+            $evenements = $evenementsRepository->findEvenementsAuteur($page, $this->getUser(), 15);
         }
         
 
@@ -230,7 +230,7 @@ class ApplicationController extends AbstractController
             $taches = $tachesRepository->findTaches($page, 15);
         }
         else {
-            $taches = $tachesRepository->findTachesAuteur($page, 15, $this->getUser());
+            $taches = $tachesRepository->findTachesAuteur($page, $this->getUser(), 15);
         }
         
 

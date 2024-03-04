@@ -54,7 +54,7 @@ class ArticlesRepository extends ServiceEntityRepository
 
     }
 
-    public function findArticlesAuteur($page, $limit = 15, $user) {
+    public function findArticlesAuteur($page, $user, $limit = 15) {
         $limit = abs($limit);
 
         $result = [];
