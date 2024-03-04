@@ -27,7 +27,7 @@ class MaintenanceListener {
         }
 
 
-        if ($ip === '82.65.195.66') {
+        if ($ip === '82.65.174.6') {
 
             return;
         }
