@@ -5,9 +5,7 @@
             {% if categorie.parent == null %}
             <li class="sidebar-title"><a href="{{ path('app_blog_categories', {'slug': categorie.slug}) }}">{{ categorie.nom }} <span>({{ categorie.articles|length }})</span></a></li>
             {% else %}
-                <ul>
                 <li><a href="{{ path('app_blog_categories', {'slug': categorie.slug}) }}">{{ categorie.nom }} <span>({{ categorie.articles|length }})</span></a></li>
-                </ul>
             {% endif %}
             
             
