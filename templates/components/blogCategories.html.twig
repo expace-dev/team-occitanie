@@ -2,13 +2,17 @@
 <div class="sidebar-item categories">
     <ul>
         {% for categorie in this.allCategorie %}
-        <pre>
-            {{ dump(categorie) }}
-        </pre>
             {% if categorie.parent == null %}
             <li style="font-size: 20px; font-weight: 700"><a href="{{ path('app_blog_categories', {'slug': categorie.slug}) }}">{{ categorie.nom }} <span>({{ categorie.articles|length }})</span></a></li>
             {% else %}
+            {% if categorie.parent == categorie.id %}
+            {{ categorie.nom }}
+            {% endif %}
+            
+            <!--
                 <li><a href="{{ path('app_blog_categories', {'slug': categorie.slug}) }}">{{ categorie.nom }} <span>({{ categorie.articles|length }})</span></a></li>
+            -->
+            
             {% endif %}
             
             
