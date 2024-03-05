@@ -83,6 +83,23 @@ class AppFixtures extends Fixture
 
         }
 
+        $sCategories = [];
+
+        for ($i=1; $i<=100; $i++) {
+
+            $sCategorie = new Categories;
+
+            $mots = rand(1,3);
+
+            $sCategorie->setNom($faker->words($mots, true))
+                      ->setParent($faker->randomElement($categories));
+
+            $manager->persist($sCategorie);
+            $sCategories[] = $sCategorie;
+
+
+        }
+
         $articles = [];
         $statut = [0, 1];
 
