@@ -152,10 +152,26 @@ class ArticlesController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            // Si on réceptionne une image d'illustration
+            if ($form->get('img')->getData()) {
+                // On récupère l'image
+                $fichier = $form->get('img')->getData();
+                // On récupère le répertoire de destination
+                $directory = 'blog_directory';
+                // On supprime l'ancienne image d'illustration
+                //unlink($article->getImg());
+                // Puis on upload la nouvelle image et on ajoute cela à  l'article
+                $article->setImg('/images/blog/' .$this->uploadService->send($fichier, $directory));
+            }
+
+            $article->setAuteur($this->getUser());
+
+            $article->setDate(new DateTime());
             $entityManager->persist($article);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_articles_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_admin_publi_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('articles/new.html.twig', [

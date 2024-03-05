@@ -49,7 +49,7 @@ class ArticlesFormType extends AbstractType
             ])
             ->add('introduction', TextareaType::class, [
                 'label' => 'Introduction',
-                'required' => true,
+                'required' => false,
                 'row_attr' => [
                     'data-live-ignore' => 'true'
                 ],
@@ -66,7 +66,7 @@ class ArticlesFormType extends AbstractType
             ])
             ->add('contenu', TextareaType::class, [
                 'label' => 'Contenu',
-                'required' => true,
+                'required' => false,
                 'row_attr' => [
                     'data-live-ignore' => 'true'
                 ],

@@ -12,7 +12,7 @@
                     <div class="row">
                         <div class="col-lg-6">
                             {{ form_label(form.categories) }}
-                                <div class="custom-select">
+                                <div class="">
                                     {{ form_widget(form.categories) }}
                                 </div>
                                 {{ form_errors(form.categories) }}
@@ -47,10 +47,11 @@
             </div>
         </div>
     </section>
+
     <script>
         // This sample still does not showcase all CKEditor 5 features (!)
         // Visit https://ckeditor.com/docs/ckeditor5/latest/features/index.html to browse all the features.
-        CKEDITOR.ClassicEditor.create(document.querySelector("#articles_form_contenu"), {
+        CKEDITOR.ClassicEditor.create(document.querySelector("#articles_form_introduction"), {
             language: 'fr',
             codeBlock: {
                 languages: [
@@ -179,7 +180,7 @@
                 'MathType'
             ],
         });
-        CKEDITOR.ClassicEditor.create(document.querySelector("#articles_form_introduction"), {
+        CKEDITOR.ClassicEditor.create(document.querySelector("#articles_form_contenu"), {
             language: 'fr',
             // https://ckeditor.com/docs/ckeditor5/latest/features/toolbar/toolbar.html#extended-toolbar-configuration-format
             toolbar: {
