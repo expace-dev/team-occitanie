@@ -14,9 +14,9 @@
               <li><a href="{{ path('app_taches_index') }}">Gérer mes taches</a></li>
               <li><a href="{{ path('app_photos_user') }}">Gérer mes photos</a></li>
               <li><a href="{{ path('app_photos_ajouter') }}">Ajouter une photo</a></li>
-              {% if app.user.role == 'ROLE_EDIT' %}
+              {% if app.user.role == 'ROLE_EDIT' or app.user.role == 'ROLE_ADMIN' %}
                 <li><a href="{{ path('app_admin_publi_index') }}">Gérer mes publications</a></li>
-                <li><a href="{{ path('app_articles_new') }}">Ajouter une publications</a></li>
+                <li><a href="{{ path('app_articles_new') }}">Ajouter une publication</a></li>
               {% endif %}
               
                 {% if app.user.role == 'ROLE_ADMIN' or app.user.role == 'ROLE_MODO'  %}
