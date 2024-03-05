@@ -4,7 +4,7 @@
         {% for categorie in this.allCategorie %}
             <li><a href="{{ path('app_blog_categories', {'slug': categorie.slug}) }}">{{ categorie.nom }} <span>({{ categorie.articles|length }})</span></a></li>
             {% for sousCat in categorie.parent %}
-
+            <li><a href="{{ path('app_blog_categories', {'slug': sousCat.slug}) }}">{{ sousCat.nom }} <span>({{ sousCat.articles|length }})</span></a></li>
             {% endfor %}
         {% endfor %}
     </ul>
