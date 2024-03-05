@@ -4,7 +4,11 @@
 
 
     {% for categorie in this.allCategorie %}
+            {% if categorie.parent == null %}
             <li style="font-size: 20px; font-weight: 700"><a href="{{ path('app_blog_categories', {'slug': categorie.slug}) }}">{{ categorie.nom }} <span>({{ categorie.articles|length }})</span></a></li>
+            {% endif %}
+            
+            
             {% for parent in categorie.categories %}
                 <li><a href="{{ path('app_blog_categories', {'slug': parent.slug}) }}">{{ parent.nom }} <span>({{ parent.articles|length }})</span></a></li>
             {% endfor %}
