@@ -6,7 +6,7 @@
     {% for categorie in this.allCategorie %}
             
             {% for parent in categorie.categories %}
-
+                <li style="font-size: 20px; font-weight: 700"><a href="{{ path('app_blog_categories', {'slug': categorie.slug}) }}">{{ categorie.nom }} <span>({{ categorie.articles|length }})</span></a></li>
                 <li><a href="{{ path('app_blog_categories', {'slug': parent.slug}) }}">{{ parent.nom }} <span>({{ parent.articles|length }})</span></a></li>
             {% endfor %}
     {% endfor %}
