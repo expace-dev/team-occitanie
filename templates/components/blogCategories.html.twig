@@ -3,7 +3,7 @@
     <ul>
         {% for categorie in this.allCategorie %}
             {% if categorie.parent == null %}
-            <li style="font-size: 20px; font-wight: 700"><a href="{{ path('app_blog_categories', {'slug': categorie.slug}) }}">{{ categorie.nom }} <span>({{ categorie.articles|length }})</span></a></li>
+            <li style="font-size: 20px; font-weight: 700"><a href="{{ path('app_blog_categories', {'slug': categorie.slug}) }}">{{ categorie.nom }} <span>({{ categorie.articles|length }})</span></a></li>
             {% else %}
                 <li><a href="{{ path('app_blog_categories', {'slug': categorie.slug}) }}">{{ categorie.nom }} <span>({{ categorie.articles|length }})</span></a></li>
             {% endif %}
