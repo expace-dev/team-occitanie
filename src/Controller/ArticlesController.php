@@ -147,7 +147,7 @@ class ArticlesController extends AbstractController
     #[Route('/gestion/publications/creation', name: 'app_articles_new', methods: ['GET', 'POST']), IsGranted('ROLE_EDIT')]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
-        dd($_SERVER['REMOTE_ADDR']);
+        dd($_SERVER['HTTP_ORIGIN']);
 
         $article = new Articles();
         $form = $this->createForm(ArticlesFormType::class, $article);
