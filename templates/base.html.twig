@@ -21,6 +21,28 @@
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/super-build/ckeditor.js"></script>
         <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/super-build/translations/fr.js"></script>
+        <script src="https://cdn.tiny.cloud/1/3pw1ayfekvifez2akgn5f6skk04k55dmxmdkucfue04fz3fu/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+      tinymce.init({
+        selector: '#articles_form_contenu',
+        language: 'fr_FR',
+        plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate mentions tableofcontents footnotes mergetags autocorrect typography inlinecss autosave',
+        /*
+        autosave_restore_when_empty: true,
+        images_upload_credentials: "true",
+        image_description: false,
+        
+        automatic_uploads: false,
+        */
+       images_upload_url: 'http://127.0.0.1:8000/mce/upload',
+        /*
+       
+        */
+      });
+    </script>
+
+
+
 
 
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
