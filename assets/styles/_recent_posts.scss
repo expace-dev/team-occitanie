@@ -1,7 +1,7 @@
  /* Recent-posts Section - Home Page
   ------------------------------*/
   .recent-posts article {
-    box-shadow: 0 4px 16px rgba(var(--default-color-rgb), 0.1);
+    box-shadow: 0 4px 16px rgba(33, 37, 41, 0.1);
     padding: 30px;
     height: 100%;
     border-radius: 10px;
@@ -16,7 +16,7 @@
   
   .recent-posts .post-category {
     font-size: 16px;
-    color: rgba(var(--default-color-rgb), 0.5);
+    color: rgba(33, 37, 41, 0.5);
     margin-bottom: 10px;
   }
   
@@ -28,12 +28,12 @@
   }
   
   .recent-posts .title a {
-    color: var(--heading-color);
+    color: #32353a;
     transition: 0.3s;
   }
   
   .recent-posts .title a:hover {
-    color: var(--accent-color);
+    color: #82A800;
   }
   
   .recent-posts .post-author-img {
@@ -49,6 +49,6 @@
   
   .recent-posts .post-date {
     font-size: 14px;
-    color: rgba(var(--default-color-rgb), 0.5);
+    color: rgba(33, 37, 41, 0.5);
     margin-bottom: 0;
   }
