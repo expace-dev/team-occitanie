@@ -22,8 +22,8 @@ class UploadController extends AbstractController
 	public function upload(Request $request): Response
 	{
 		 // @TODO : définissez votre vos propres domaines dans `$allowedOrigins`
-		$allowedOrigins = ["127.0.0.1", "https://www.team-occitanie.fr", "*"];
-		$origin = $request->server->get('REMOTE_ADDR');
+		$allowedOrigins = ["127.0.0.1", "www.team-occitanie.fr"];
+		$origin = $request->server->get('HTTP_HOST');
 
 
 		// Les requêtes de même origine ne définiront pas d'origine. Si l'origine est définie, elle doit être valide.
