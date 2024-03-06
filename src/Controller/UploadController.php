@@ -22,7 +22,7 @@ class UploadController extends AbstractController
 	public function upload(Request $request): Response
 	{
 		 // @TODO : définissez votre vos propres domaines dans `$allowedOrigins`
-		$allowedOrigins = ["127.0.0.1", "https://www.team-occitanie.fr"];
+		$allowedOrigins = ["127.0.0.1", "https://www.team-occitanie.fr", "*"];
 		$origin = $request->server->get('REMOTE_ADDR');
 
 
