@@ -47,11 +47,10 @@
             </div>
         </div>
     </section>
-
     <script>
         // This sample still does not showcase all CKEditor 5 features (!)
         // Visit https://ckeditor.com/docs/ckeditor5/latest/features/index.html to browse all the features.
-        CKEDITOR.ClassicEditor.create(document.querySelector("#articles_form_introduction"), {
+        CKEDITOR.ClassicEditor.create(document.querySelector("#articles_form_contenu"), {
             language: 'fr',
             codeBlock: {
                 languages: [
@@ -86,7 +85,7 @@
                 }
             },
             // https://ckeditor.com/docs/ckeditor5/latest/features/headings.html#configuration
-             heading: {
+            heading: {
                 options: [
                     { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
                     { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
@@ -180,7 +179,7 @@
                 'MathType'
             ],
         });
-        CKEDITOR.ClassicEditor.create(document.querySelector("#articles_form_contenu"), {
+        CKEDITOR.ClassicEditor.create(document.querySelector("#articles_form_introduction"), {
             language: 'fr',
             // https://ckeditor.com/docs/ckeditor5/latest/features/toolbar/toolbar.html#extended-toolbar-configuration-format
             toolbar: {
@@ -258,12 +257,12 @@
                     {
                         marker: '@',
                         feed: [
-                            '@apple', '@bears', '@brownie', '@cake', '@cake', '@candy', '@canes', '@chocolate', '@cookie','@cotton', '@cream',
+                            '@apple', '@bears', '@brownie', '@cake', '@cake', '@candy', '@canes', '@chocolate', '@cookie', '@cotton', '@cream',
                             '@cupcake', '@danish', '@donut', '@dragée', '@fruitcake', '@gingerbread', '@gummi', '@ice', '@jelly-o',
                             '@liquorice', '@macaroon', '@marzipan', '@oat', '@pie', '@plum', '@pudding', '@sesame', '@snaps', '@soufflé',
                             '@sugar', '@sweet', '@topping', '@wafer'
                         ],
-                         minimumCharacters: 1
+                        minimumCharacters: 1
                     }
                 ]
             },
