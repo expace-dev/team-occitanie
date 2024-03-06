@@ -64,7 +64,7 @@ class UploadController extends AbstractController
         // Puis on upload la nouvelle image et on ajoute cela à  l'article
         $fichier = $this->uploadService->send($file, $directory);
 
-		$fileUrl = "http://127.0.0.1:8000/images/blog/$fichier";
+		$fileUrl = "https://www.team-occitanie.fr/images/blog/$fichier";
 
 		return new JsonResponse(
 			["location" => $fileUrl],
