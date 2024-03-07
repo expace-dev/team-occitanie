@@ -62,10 +62,9 @@ class Articles
     #[ORM\PrePersist]
     #[ORM\PreUpdate]
     public function initializeSlug() {
-        if(empty($this->slug)) {
+       
             $slugify = new Slugify();
             $this->slug = $slugify->slugify($this->titre);
-        }
     }
 
     public function getId(): ?int
