@@ -54,7 +54,7 @@ class ArticlesFormType extends AbstractType
                     'data-live-ignore' => 'true'
                 ],
                 'constraints' => [
-                    new NotNull(['message' => 'Veuillez détailler votre intro']),
+                    new NotNull(['message' => 'Veuillez ajouter du contenu']),
                     new Length([
                         'min' => 5,
                         'minMessage' => 'Trop court, minimum {{ limit }} caractères',
@@ -71,16 +71,13 @@ class ArticlesFormType extends AbstractType
                     'data-live-ignore' => 'true'
                 ],
                 'constraints' => [
-                    new NotNull(['message' => 'Veuillez détailler votre article']),
+                    new NotNull(['message' => 'Veuillez ajouter du contenu']),
                     new Length([
                         'min' => 5,
                         'minMessage' => 'Trop court, minimum {{ limit }} caractères',
                     ]),
                 ],
-                'attr' => [
-                    'class' => 'editor',
-                    'rows' => '50'
-                ]
+                
             ])
             ->add('img', FileType::class, [
                 'attr' => [
