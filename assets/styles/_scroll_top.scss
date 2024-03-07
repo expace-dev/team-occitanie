@@ -8,7 +8,7 @@
     right: 15px;
     bottom: 15px;
     z-index: 99999;
-    background-color: var(--accent-color);
+    background-color: #82A800;
     width: 40px;
     height: 40px;
     border-radius: 4px;
@@ -22,7 +22,7 @@
   }
   
   .scroll-top:hover {
-    background-color: rgba(var(--accent-color-rgb), 0.8);
+    background-color: rgba(130, 168, 0, 0.8);
     color: #ffffff;
   }
   
