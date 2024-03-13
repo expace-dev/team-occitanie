@@ -164,3 +164,26 @@ div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm {
 .form-control.is-invalid:focus {
   box-shadow: none;
 }
+
+div:where(.swal2-container) div:where(.swal2-loader) {
+  display:none;
+  align-items:center;
+  justify-content:center;
+  width:2.2em;
+  height:2.2em;
+  margin:0 1.875em;
+  animation:swal2-rotate-loading 1.5s linear 0s infinite normal;
+  border-width:.25em;
+  border-style:solid;
+  border-radius:100%;
+  border-color:#82A800 rgba(0,0,0,0) #82A800 rgba(0,0,0,0)
+}
+div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm {
+  border: 0;
+  border-radius: .25em;
+  background: initial;
+    background-color: initial;
+  background-color: #82A800;
+  color: #fff;
+  font-size: 1em;
+}

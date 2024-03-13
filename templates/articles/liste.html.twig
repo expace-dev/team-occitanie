@@ -19,11 +19,12 @@
                         <th>Auteur</th>
                         <th>Catégorie</th>
                         <th>Date de publication</th>
-                        <th style="width:90px;">actions</th>
+                        <th style="width:120px;">actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for article in articles.data %}
+                        
                         <tr>
                             <td>{{ article.titre }}</td>
                             <td>{{ article.auteur.username }}</td>
@@ -36,6 +37,7 @@
                                 {% else %}
                                     <a class="powerOn" href="{{ path('app_publi_activate', {'id': article.id}) }}"><i   class="fa fa-power-off" aria-hidden="true"></i></a>&nbsp;&nbsp;
                                 {% endif %}
+                                <a class="discord" href="http://bot.team-occitanie.fr/post-article/query/?title={{article.titre}}&url={{ path('app_blog_show', {'slug': article.slug}) }}&username={{article.auteur.username}}&avatar={{article.auteur.avatar}}&description={{article.introduction}}&image={{article.img}}"><i   class="fa-brands fa-discord" aria-hidden="true"></i></a>&nbsp;&nbsp;
                                 <a class="remove" href="{{ path('app_publi_delete', {'id': article.id}) }}"><i   class="fa fa-trash" aria-hidden="true"></i></a>
                             </td>
                         </tr>
@@ -98,6 +100,42 @@
                         document.location.href = url;
                     }
                 })
+            });
+            $(".discord").click(function (event) {
+                event.preventDefault();
+                
+                Swal.fire({
+                text: "Voulez vous vraiment partager cette publication ?",
+                showCancelButton: true,
+                confirmButtonColor: '#82A800',
+                cancelButtonColor: '#d33',
+                confirmButtonText: "Partager",
+                showLoaderOnConfirm: true,
+                icon: "question",
+                preConfirm: async () => {
+                    try {
+                    url = $(this).attr('href');
+                    const response = await fetch(url);
+                    if (!response.ok) {
+                        return Swal.showValidationMessage(`
+                        ${JSON.stringify(await response.json())}
+                        `);
+                    }
+                    return response.json();
+                    } catch (error) {
+                    Swal.showValidationMessage(`
+                        Une erreur c'est produite, veuillez réessayer!
+                    `);
+                    }
+                },
+                allowOutsideClick: () => !Swal.isLoading()
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                    text: `${result.value.statut}`,
+                    });
+                }
+                });
             });
         });
     </script>
