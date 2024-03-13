@@ -51,7 +51,7 @@ class ArticlesFormType extends AbstractType
                 'label' => 'Introduction',
                 'required' => false,
                 'row_attr' => [
-                    'data-live-ignore' => 'true'
+                    'data-live-ignore' => 'true',
                 ],
                 'constraints' => [
                     new NotNull(['message' => 'Veuillez ajouter du contenu']),
@@ -61,7 +61,8 @@ class ArticlesFormType extends AbstractType
                     ]),
                 ],
                 'attr' => [
-                    'class' => 'editor'
+                    'class' => 'editor',
+                    'rows' => 10,
                 ]
             ])
             ->add('contenu', TextareaType::class, [
