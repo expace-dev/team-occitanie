@@ -83,6 +83,10 @@ class ArticlesController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            $introduction = nl2br($article->getIntroduction());
+
+            $article->setIntroduction($introduction);
+
 
             // Si on réceptionne une image d'illustration
             if ($form->get('img')->getData()) {
