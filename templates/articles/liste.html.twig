@@ -115,7 +115,7 @@
                 preConfirm: async () => {
                     try {
                     url = $(this).attr('href');
-                    const response = await fetch('http://bot.team-occitanie.fr/post-article/query/?title=Synchronisation des mods&url=https://www.team-occitanie.fr/publications/synchronisation-des-mods&username=Fredy34560&avatar=https://www.team-occitanie.fr/images/avatars/9f3a23c03735e12e99c21863e2b27d05.jpg&description=Dans cet article nous allons voir comment mettre en place le système de synchronisation. Vous devez au préalable vous être inscris sur le site, avoir activé votre compte et reçu le mail confirmant la création de votre compte Cloud&image=https://www.team-occitanie.fr/images/blog/a8142a95577525c52713731984e19bf7.jpg');
+                    const response = await fetch(url);
                     if (!response.ok) {
                         return Swal.showValidationMessage(`
                         ${JSON.stringify(await response.json())}
@@ -123,9 +123,7 @@
                     }
                     return response.json();
                     } catch (error) {
-                    Swal.showValidationMessage(`
-                        ${error}
-                    `);
+                    Swal.showValidationMessage(`Une erreur c'est produite, veuillez réessayer!`);
                     }
                 },
                 allowOutsideClick: () => !Swal.isLoading()
