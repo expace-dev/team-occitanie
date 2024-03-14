@@ -136,10 +136,10 @@ class PhotosController extends AbstractController
                 'GET',
                 'https://bot.team-occitanie.fr/post-photo/query/?username='.$photo->getUsers()->getUsername().'&avatar=https://www.team-occitanie.fr'.$photo->getUsers()->getAvatar().'&image=https://www.team-occitanie.fr'.$photo->getUrl().''
             );
+$response->getContent()["messageId"];
+            $content = $response->toArray();
 
-            
-
-            dd($response->getContent()["messageId"]);
+            dd($content);
 
            // $entityManager->persist($photo);
             //$entityManager->flush();
