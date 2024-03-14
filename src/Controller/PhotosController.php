@@ -138,9 +138,8 @@ class PhotosController extends AbstractController
             );
 
             
-            $datas = json_decode($response->getContent());
 
-            dd($datas['messageId']);
+            dd($response->getContent()["messageId"]);
 
            // $entityManager->persist($photo);
             //$entityManager->flush();
