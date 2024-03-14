@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class PhotosController extends AbstractController
 {
@@ -103,13 +104,16 @@ class PhotosController extends AbstractController
         return $this->redirectToRoute($routeRetour, [], Response::HTTP_SEE_OTHER);
     }
     #[Route('/gestion/photos/ajouter', name: 'app_photos_ajouter', methods: ['GET', 'POST']), IsGranted('ROLE_USER')]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, HttpClientInterface $httpClient): Response
     {
         $photo = new Photos();
         $form = $this->createForm(PhotosFormType::class, $photo);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            
+
 
 
             if ($form->get('url')->getData()) {
@@ -125,8 +129,18 @@ class PhotosController extends AbstractController
             $photo->setCreatedAt(new DateTime('now'))
                   ->setUsers($this->getUser());
             //dd($this->getUser());
-            $entityManager->persist($photo);
-            $entityManager->flush();
+
+            //dd($photo);
+
+            $response = $httpClient->request(
+                'GET',
+                'https://bot.team-occitanie.fr/post-photo/query/?username='.$photo->getUsers()->getUsername().'&avatar=https://www.team-occitanie.fr'.$photo->getUsers()->getAvatar().'&image=https://www.team-occitanie.fr'.$photo->getUrl().''
+            );
+
+           // $entityManager->persist($photo);
+            //$entityManager->flush();
+
+            
 
             $this->addFlash('success', 'Votre photo a bien été envoyé');
 
