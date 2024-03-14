@@ -137,7 +137,7 @@ class PhotosController extends AbstractController
                 'https://bot.team-occitanie.fr/post-photo/query/?username='.$photo->getUsers()->getUsername().'&avatar=https://www.team-occitanie.fr'.$photo->getUsers()->getAvatar().'&image=https://www.team-occitanie.fr'.$photo->getUrl().''
             );
 
-            dd($response);
+            dd($response->getContent());
 
            // $entityManager->persist($photo);
             //$entityManager->flush();
