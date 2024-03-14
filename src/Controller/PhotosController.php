@@ -140,10 +140,10 @@ class PhotosController extends AbstractController
 
             $photo->setDiscordId($content["messageId"]);
 
-            dd($photo);
+            //dd($photo);
 
-           // $entityManager->persist($photo);
-            //$entityManager->flush();
+           $entityManager->persist($photo);
+           $entityManager->flush();
 
             
 
