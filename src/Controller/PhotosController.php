@@ -81,7 +81,7 @@ class PhotosController extends AbstractController
         return $this->redirectToRoute($routeRetour, [], Response::HTTP_SEE_OTHER);
     }
     #[Route('/gestion/photos/{id}/suppression', name: 'app_photos_delete', methods: ['GET']), IsGranted('ROLE_USER')]
-    public function delete(Request $request, Photos $photos, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Photos $photos, EntityManagerInterface $entityManager, HttpClientInterface $httpClient): Response
     {
         if ($this->getUser()->getRoles()[0] === 'ROLE_USER') {
             if ($photos->getUsers() !== $this->getUser()) {
@@ -93,6 +93,11 @@ class PhotosController extends AbstractController
         else {
             $routeRetour = 'app_photos_index';
         }
+
+        $httpClient->request(
+            'GET',
+            'https://bot.team-occitanie.fr/remove-photo/query/?id='.$photos->getDiscordId().''
+        );
 
         unlink('/var/www/clients/client0/web2/web/public' . $photos->getUrl());
 
@@ -126,11 +131,7 @@ class PhotosController extends AbstractController
             }
 
             
-            $photo->setCreatedAt(new DateTime('now'))
-                  ->setUsers($this->getUser());
-            //dd($this->getUser());
-
-            //dd($photo);
+            $photo->setCreatedAt(new DateTime('now'))->setUsers($this->getUser());
 
             $response = $httpClient->request(
                 'GET',
@@ -140,12 +141,10 @@ class PhotosController extends AbstractController
 
             $photo->setDiscordId($content["messageId"]);
 
-            //dd($photo);
 
            $entityManager->persist($photo);
            $entityManager->flush();
 
-            
 
             $this->addFlash('success', 'Votre photo a bien été envoyé');
 
