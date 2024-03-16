@@ -54,7 +54,7 @@
     .navmenu .dropdown ul {
       margin: 0;
       padding: 10px 0;
-      background: #82A800;
+      background: #343434;
       display: block;
       position: absolute;
       visibility: hidden;
@@ -85,7 +85,7 @@
     .navmenu .dropdown ul a:hover,
     .navmenu .dropdown ul .active:hover,
     .navmenu .dropdown ul li:hover>a {
-      color: #212529;
+      color: #d3d3cb;
     }
   
     .navmenu .dropdown:hover>ul {

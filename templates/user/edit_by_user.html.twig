@@ -20,37 +20,4 @@
         </div>
     </section>
 
-    <section class="auth" id="credentials">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="section-header" data-aos="fade-up" data-aos-delay="100">
-                    <h2>Modifier mes identifiants</h2>
-                </div>
-                <div class="info-box" data-aos="fade-up" data-aos-delay="200">
-                    {{ form_start(formUserCredentials) }}
-                        <div class="row">
-                            <div class="col-lg-4">
-                                {{ form_label(formUserCredentials.email) }}
-                                {{ form_widget(formUserCredentials.email, {'value' : app.user.email}) }}
-                                {{ form_errors(formUserCredentials.email) }}
-                            </div>
-                            <div class="col-lg-4">
-                                {{ form_label(formUserCredentials.ancienPassword) }}
-                                {{ form_widget(formUserCredentials.ancienPassword) }}
-                                {{ form_errors(formUserCredentials.ancienPassword) }}
-                            </div>
-                            <div class="col-lg-4">
-                                {{ form_label(formUserCredentials.plainPassword) }}
-                                {{ form_widget(formUserCredentials.plainPassword) }}
-                                {{ form_errors(formUserCredentials.plainPassword) }}
-                            </div>
-                            <div class="col-lg-12 text-start">
-                                <input class="btn btn-primary mt-2" type="submit" value="Enregistrer">
-                            </div>
-                        </div>
-                    {{ form_end(formUserCredentials) }}
-                </div>
-            </div>
-        </div>
-    </section>
 {% endblock %}

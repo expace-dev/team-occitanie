@@ -56,77 +56,18 @@ class UserController extends AbstractController
 
         if ($formUserInfo->isSubmitted() && $formUserInfo->isValid()) {
 
-            // Si on réceptionne une image d'illustration
-            if ($formUserInfo->get('avatar')->getData()) {
-
-                if ($user->getAvatar()) {
-                    unlink('/var/www/clients/client0/web2/web/public' . $user->getAvatar());
-                }
-                // On récupère l'image
-                $fichier = $formUserInfo->get('avatar')->getData();
-                // On récupère le répertoire de destination
-                $directory = 'avatar_directory';
-                // Puis on upload la nouvelle image et on ajoute cela à  l'article
-                $user->setAvatar('/images/avatars/' .$this->uploadService->send($fichier, $directory));
-
-            }
+            $user->setIsVerified(true);
 
             $entityManager->flush();
 
-            $this->addFlash('success', 'Ton profil a bien été mis à jour');
+            $this->addFlash('success', 'Votre profil a bien été mis à jour');
 
             return $this->redirectToRoute('app_user_edit_client', [], Response::HTTP_SEE_OTHER);
         }
-        
-        $url = $this->generateUrl('app_user_edit_client', [
-            '_fragment' => 'credentials'
-        ]);
-
-        $formUserCredentials = $this->createForm(UserCredentialsFormType::class, $user);
-        $formUserCredentials->handleRequest($request);
-
-        if ($formUserCredentials->isSubmitted() && $formUserCredentials->isValid()) {
-
-            $verifiedPassword = $this->encoder->isPasswordValid($user, $formUserCredentials->get('ancienPassword')->getData());
-
-            if ($verifiedPassword === false) {
-                    $this->addFlash('error', 'Ton mot de passe est invalide');
-                    return $this->redirect($url);
-            }
-            if ($formUserCredentials->get('plainPassword')->getData()) {
-                if ($formUserCredentials->get('plainPassword')->getData() === $formUserCredentials->get('ancienPassword')->getData()) {
-                    $this->addFlash('error', 'Ton mot de passe correspond à celui enregistré');
-                        return $this->redirect($url);
-                }
-                else {
-                    $passwordEncoded = $this->encoder->hashPassword(
-                    $user,
-                    $formUserCredentials->get('plainPassword')->getData()
-                    );
-                    $user->setPassword($passwordEncoded);
-                }
-            }
-
-
-            $entityManager->flush();
-
-            $this->addFlash('success', 'Tes identifiants ont bien été mis à jour');
-
-            return $this->redirect($url);
-
-        }
-        
-        if ($formUserCredentials->isSubmitted() && !$formUserCredentials->isValid()) {
-            $this->addFlash('error', 'Tu ne peux pas utiliser cette adresse Email');
-
-            return $this->redirect($url);
-        }
-
 
         return $this->render('user/edit_by_user.html.twig', [
             'user' => $user,
             'formUserInfo' => $formUserInfo,
-            'formUserCredentials' => $formUserCredentials
         ]);
     }
     /**

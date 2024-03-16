@@ -8,6 +8,8 @@ parameters:
     blog_directory: '%kernel.project_dir%/public/images/blog'
     portfolio_directory: '%kernel.project_dir%/public/images/portfolio'
     events_directory: '%kernel.project_dir%/public/images/evenements'
+    discord_guild: '%env(DISCORD_GUILD)%'
+    discord_token: '%env(DISCORD_TOKEN)%'
 services:
     # default configuration for services in *this* file
     _defaults:

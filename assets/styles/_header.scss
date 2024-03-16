@@ -11,7 +11,7 @@
   }
   
   .header .logo img {
-    max-height: 40px;
+    max-height: 80px;
     margin-right: 6px;
   }
   
@@ -96,7 +96,7 @@
   /* Home Page Custom Header on page scroll
   ------------------------------*/
   .index-page.scrolled .header {
-    --background-color: #82A800;;
+    --background-color: #343434;
     --heading-color: #fff;
     --nav-color: #fff;
     --nav-hover-color: #212529;
@@ -105,17 +105,17 @@
   /* Home Page Custom Header
   ------------------------------*/
   .blog-page .header {
-    --background-color: #82A800;;
+    --background-color: #343434;;
     --heading-color: #fff;
     --nav-color: #fff;
-    --nav-hover-color: #212529;
+    --nav-hover-color: #d3d3cb;
   }
   
   /* Home Page Custom Header on page scroll
   ------------------------------*/
   .blog-page.scrolled .header {
-    --background-color: #82A800;;
+    --background-color: #343434;;
     --heading-color: #fff;
     --nav-color: #fff;
-    --nav-hover-color: #212529;
+    --nav-hover-color: #d3d3cb;
   }

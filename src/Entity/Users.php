@@ -43,10 +43,10 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $avatar = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $poste = null;
 
     #[ORM\OneToMany(targetEntity: Articles::class, mappedBy: 'auteur', orphanRemoval: true)]
@@ -63,6 +63,9 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(targetEntity: Evenements::class, mappedBy: 'auteur')]
     private Collection $evenements;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $DiscordId = null;
 
     public function __construct()
     {
@@ -358,6 +361,18 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
                 $evenement->setAuteur(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDiscordId(): ?string
+    {
+        return $this->DiscordId;
+    }
+
+    public function setDiscordId(?string $DiscordId): static
+    {
+        $this->DiscordId = $DiscordId;
 
         return $this;
     }
