@@ -16,7 +16,7 @@ class HomeController extends AbstractController
     public function index(ArticlesRepository $articlesRepository, PhotosRepository $photosRepository, UsersRepository $usersRepository): Response
     {
         $articles = $articlesRepository->findBy(['active' => true], ['id' => 'ASC',], 3);
-        $photos = $photosRepository->findBy(['statut' => true], ['id' => 'ASC',], 9);
+        $photos = $photosRepository->findBy(['statut' => true], ['id' => 'DESC',], 9);
         $membres = $usersRepository->findBy(['isVerified' => true]);
 
 
