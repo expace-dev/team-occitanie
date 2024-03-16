@@ -17,7 +17,7 @@ class HomeController extends AbstractController
     {
         $articles = $articlesRepository->findBy(['active' => true], ['id' => 'ASC',], 3);
         $photos = $photosRepository->findBy(['statut' => true], ['id' => 'ASC',], 9);
-        $membres = $usersRepository->findAll();
+        $membres = $usersRepository->findBy(['isVerified' => true]);
 
 
         return $this->render('home/index.html.twig', [
