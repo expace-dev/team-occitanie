@@ -59,9 +59,12 @@ class ApplicationController extends AbstractController
                       ->setCreatedAt(new DateTime())
                       ->setAuteur($this->getUser());
 
+            $timestamp = (new \DateTime('now'))->getTimestamp();
+
+
             $response = $httpClient->request(
                 'GET',
-                'https://bot.team-occitanie.fr/add-evenement/query/?username='.$evenement->getAuteur()->getUsername().'&date='.$evenement->getDateEvents().'&description='.$evenement->getDescription().'&avatar='.$evenement->getAuteur()->getAvatar().'&type='.$evenement->getTypeSession().'&image='.$evenement->getVisuel().''
+                'https://bot.team-occitanie.fr/add-evenement/query/?username='.$evenement->getAuteur()->getUsername().'&date='.$timestamp.'&description='.$evenement->getDescription().'&avatar='.$evenement->getAuteur()->getAvatar().'&type='.$evenement->getTypeSession().'&image='.$evenement->getVisuel().''
             );
         
             $content = $response->toArray();
