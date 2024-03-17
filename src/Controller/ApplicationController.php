@@ -8,12 +8,13 @@ use App\Entity\Evenements;
 use App\Form\TachesFormType;
 use App\Services\UploadService;
 use App\Form\EvenementsFormType;
-use App\Repository\EvenementsRepository;
 use App\Repository\TachesRepository;
+use App\Repository\EvenementsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -28,7 +29,13 @@ class ApplicationController extends AbstractController
     }
     
     #[Route('/application', name: 'app_application_index'), IsGranted('ROLE_USER')]
-    public function index(Request $request, EntityManagerInterface $entityManager, TachesRepository $tachesRepository, EvenementsRepository $evenementsRepository): Response
+    public function index(
+        Request $request, 
+        EntityManagerInterface $entityManager, 
+        TachesRepository $tachesRepository, 
+        EvenementsRepository $evenementsRepository,
+        HttpClientInterface $httpClient
+        ): Response
     {
         $evenement = new Evenements();
         $formEvents = $this->createForm(EvenementsFormType::class, $evenement);
@@ -55,6 +62,11 @@ class ApplicationController extends AbstractController
             
             $entityManager->persist($evenement);
             $entityManager->flush();
+
+            $response = $httpClient->request(
+                'GET',
+                'https://bot.team-occitanie.fr/add-tache/query/?userId=335402779092975618'
+            );
 
             $this->addFlash('sucess', 'Votre évènement a bien été ajouté');
 
