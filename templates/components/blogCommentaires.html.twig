@@ -1,4 +1,11 @@
 {% set commentaires = this.commentaires %}
+{% if commentaire.auteur.avatar %}
+    {% set avatar = commentaire.auteur.avatar %}
+{% else %}
+    {% set avatar = '/images/avatars/no-avatar.png' %}
+{% endif %}
+
+
 <div class="blog-comments">
     <h4 class="comments-count">{{ commentaires|length }} Comments</h4>
     {% for commentaire in commentaires %}
