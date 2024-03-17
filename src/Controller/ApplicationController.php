@@ -61,7 +61,6 @@ class ApplicationController extends AbstractController
 
             $timestamp = (new \DateTime('now'))->getTimestamp();
 
-dd($timestamp);
             $response = $httpClient->request(
                 'GET',
                 'https://bot.team-occitanie.fr/add-evenement/query/?username='.$evenement->getAuteur()->getUsername().'&date='.$timestamp.'&description='.$evenement->getDescription().'&avatar='.$evenement->getAuteur()->getAvatar().'&type='.$evenement->getTypeSession().'&image='.$evenement->getVisuel().''
