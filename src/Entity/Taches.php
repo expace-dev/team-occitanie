@@ -33,6 +33,9 @@ class Taches
     #[ORM\Column]
     private ?bool $statut = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $discordId = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -106,6 +109,18 @@ class Taches
     public function setStatut(bool $statut): static
     {
         $this->statut = $statut;
+
+        return $this;
+    }
+
+    public function getDiscordId(): ?string
+    {
+        return $this->discordId;
+    }
+
+    public function setDiscordId(?string $discordId): static
+    {
+        $this->discordId = $discordId;
 
         return $this;
     }

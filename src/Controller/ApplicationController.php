@@ -63,10 +63,7 @@ class ApplicationController extends AbstractController
             $entityManager->persist($evenement);
             $entityManager->flush();
 
-            $response = $httpClient->request(
-                'GET',
-                'https://bot.team-occitanie.fr/add-tache/query/?userId=335402779092975618'
-            );
+            
 
             $this->addFlash('sucess', 'Votre évènement a bien été ajouté');
 
@@ -96,6 +93,15 @@ class ApplicationController extends AbstractController
             $tache->setStatut(1);
             $tache->setCreatedAt(new DateTime());
             $tache->setAuteur($this->getUser());
+
+            $response = $httpClient->request(
+                'GET',
+                'https://bot.team-occitanie.fr/add-tache/query/?username='.$tache->getAuteur()->getUsername().'&map='.$tache->getMap().'&description='.$tache->getType().'&avatar='.$tache->getAuteur()->getAvatar().''
+            );
+
+            $content = $response->toArray();
+
+            $tache->setDiscordId($content["messageId"]);
 
             $entityManager->persist($tache);
             $entityManager->flush();
