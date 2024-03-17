@@ -127,8 +127,14 @@ class ApplicationController extends AbstractController
         ]);
     }
     #[Route('/application/validation/tache/{id}', name: 'app_application_validation'), IsGranted('ROLE_USER')]
-    public function activate(Request $request, EntityManagerInterface $entityManager, TachesRepository $tachesRepository, Taches $tache): Response
+    public function activate(Request $request, EntityManagerInterface $entityManager, TachesRepository $tachesRepository, Taches $tache, HttpClientInterface $httpClient): Response
     {
+
+        $httpClient->request(
+            'GET',
+            'https://bot.team-occitanie.fr/remove-tache/query/?id='.$tache->getDiscordId().''
+        );
+
         $entityManager->remove($tache);
         $entityManager->flush();
 
