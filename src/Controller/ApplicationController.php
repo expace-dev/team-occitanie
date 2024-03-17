@@ -63,7 +63,7 @@ class ApplicationController extends AbstractController
 
             $response2 = $httpClient->request(
                 'GET',
-                'https://bot.team-occitanie.fr/add-evenement/query/?username='.$evenement->getAuteur()->getUsername().'&date='.$timestamp.'&description='.$evenement->getDescription().'&avatar='.$evenement->getAuteur()->getAvatar().'&type='.$evenement->getTypeSession().'&image='.$evenement->getVisuel().''
+                'https://bot.team-occitanie.fr/add-evenement/query/?username='.$evenement->getAuteur()->getUsername().'&date='.$timestamp.'&description='.$evenement->getDescription().'&avatar='.$evenement->getAuteur()->getAvatar().'&type='.$evenement->getTypeSession().'&image=https://www.team-occitanie.fr'.$evenement->getVisuel().''
             );
         
             $content2 = $response2->toArray();
