@@ -133,9 +133,11 @@ class PhotosController extends AbstractController
             
             $photo->setCreatedAt(new DateTime('now'))->setUsers($this->getUser());
 
+
+
             $response = $httpClient->request(
                 'GET',
-                'https://bot.team-occitanie.fr/post-photo/query/?username='.$photo->getUsers()->getUsername().'&avatar=https://www.team-occitanie.fr'.$photo->getUsers()->getAvatar().'&image=https://www.team-occitanie.fr'.$photo->getUrl().''
+                'https://bot.team-occitanie.fr/post-photo/query/?username='.$photo->getUsers()->getUsername().'&avatar='.$photo->getUsers()->getAvatar().'&image=https://www.team-occitanie.fr'.$photo->getUrl().''
             );
             $content = $response->toArray();
 
