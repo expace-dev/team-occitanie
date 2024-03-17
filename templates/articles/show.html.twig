@@ -1,6 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Articles{% endblock %}
+{% if article.auteur.avatar %}
+  {% set avatar = article.auteur.avatar %}
+{% else %}
+    {% set avatar = '/images/avatars/no-avatar.png' %}
+{% endif %}
 
 {% block body %}
   {{ component('breadcrumbs', {'title': block('title')}) }}
