@@ -65,6 +65,8 @@ class ApplicationController extends AbstractController
             );
         
             $content = $response->toArray();
+
+            dd($content);
         
             $evenement->setDiscordId($content["messageId"]);
 
