@@ -61,16 +61,16 @@ class ApplicationController extends AbstractController
 
             $timestamp = (new \DateTime('now'))->getTimestamp();
 
-            $response = $httpClient->request(
+            $response2 = $httpClient->request(
                 'GET',
                 'https://bot.team-occitanie.fr/add-evenement/query/?username='.$evenement->getAuteur()->getUsername().'&date='.$timestamp.'&description='.$evenement->getDescription().'&avatar='.$evenement->getAuteur()->getAvatar().'&type='.$evenement->getTypeSession().'&image='.$evenement->getVisuel().''
             );
         
-            $content = $response->toArray();
+            $content2 = $response2->toArray();
 
             
         
-            $evenement->setDiscordId($content["messageId"]);
+            $evenement->setDiscordId($content2["messageId"]);
 
             
             $entityManager->persist($evenement);
