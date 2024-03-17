@@ -59,6 +59,15 @@ class ApplicationController extends AbstractController
                       ->setCreatedAt(new DateTime())
                       ->setAuteur($this->getUser());
 
+            $response = $httpClient->request(
+                'GET',
+                'https://bot.team-occitanie.fr/add-evenement/query/?username='.$evenement->getAuteur()->getUsername().'&date='.$evenement->getDateEvents().'&description='.$evenement->getDescription().'&avatar='.$evenement->getAuteur()->getAvatar().'&type='.$evenement->getTypeSession().'&image='.$evenement->getVisuel().''
+            );
+        
+            $content = $response->toArray();
+        
+            $evenement->setDiscordId($content["messageId"]);
+
             
             $entityManager->persist($evenement);
             $entityManager->flush();
@@ -163,7 +172,7 @@ class ApplicationController extends AbstractController
 
     }
     #[Route('/gestion/evenements/{id}/suppression', name: 'app_evenements_delete', methods: ['GET']), IsGranted('ROLE_USER')]
-    public function deleteEvenements(Request $request, Evenements $evenement, EntityManagerInterface $entityManager): Response
+    public function deleteEvenements(Request $request, Evenements $evenement, EntityManagerInterface $entityManager, HttpClientInterface $httpClient): Response
     {
         if ($this->getUser()->getRoles()[0] === 'ROLE_USER') {
             if ($evenement->getAuteur() !== $this->getUser()) {
@@ -175,6 +184,11 @@ class ApplicationController extends AbstractController
         if ($evenement->getVisuel()) {
             //unlink('/var/www/clients/client0/web2/web/public' . $evenement->getVisuel());
         }
+
+        $httpClient->request(
+            'GET',
+            'https://bot.team-occitanie.fr/remove-evenement/query/?id='.$evenement->getDiscordId().''
+        );
 
         $entityManager->remove($evenement);
         $entityManager->flush();
