@@ -7,11 +7,11 @@
 
 
 <div class="blog-comments">
-    <h4 class="comments-count">{{ commentaires|length }} Comments</h4>
+    <h4 class="comments-count">{{ commentaires|length }} Commentaires</h4>
     {% for commentaire in commentaires %}
         <div id="comment-{{ commentaire.id }}" class="comment">
             <div class="d-flex">
-                <div class="comment-img"><img src="{{ commentaire.auteur.avatar }}" alt=""></div>
+                <div class="comment-img"><img src="{{ avatar }}" alt=""></div>
                 <div>
                     <h5>
                         <a href="#ajout-commentaire" data-reply data-id="{{commentaire.id}}">{{ commentaire.auteur.username }}</a> 
