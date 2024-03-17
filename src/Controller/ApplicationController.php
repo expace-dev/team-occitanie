@@ -59,6 +59,7 @@ class ApplicationController extends AbstractController
                       ->setCreatedAt(new DateTime())
                       ->setAuteur($this->getUser());
 
+                      dd($dateCreate);
             $timestamp = (new \DateTime('now'))->getTimestamp();
 
             $response2 = $httpClient->request(
