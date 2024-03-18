@@ -341,7 +341,7 @@ class ApplicationController extends AbstractController
 
             $response = $httpClient->request(
                 'GET',
-                'https://bot.team-occitanie.fr/edit-tache/query/?username='.$taches->getAuteur()->getUsername().'&map='.$taches->getMap().'&description='.$taches->getType().'&avatar='.$taches->getAuteur()->getAvatar().'',
+                'https://bot.team-occitanie.fr/edit-tache/query/?username='.$taches->getAuteur()->getUsername().'&map='.$taches->getMap().'&description='.$taches->getType().'&avatar='.$taches->getAuteur()->getAvatar().'&id='.$taches->getDiscordId().'',
                 [
                     'headers' => [
                         'Origin' => 'https://www.team-occitanie.fr'
