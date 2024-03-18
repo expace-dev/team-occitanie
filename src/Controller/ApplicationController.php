@@ -63,7 +63,12 @@ class ApplicationController extends AbstractController
 
             $response2 = $httpClient->request(
                 'GET',
-                'https://bot.team-occitanie.fr/add-evenement/query/?username='.$evenement->getAuteur()->getUsername().'&date='.$timestamp.'&description='.$evenement->getDescription().'&avatar='.$evenement->getAuteur()->getAvatar().'&type='.$evenement->getTypeSession().'&image=https://www.team-occitanie.fr'.$evenement->getVisuel().''
+                'https://bot.team-occitanie.fr/add-evenement/query/?username='.$evenement->getAuteur()->getUsername().'&date='.$timestamp.'&description='.$evenement->getDescription().'&avatar='.$evenement->getAuteur()->getAvatar().'&type='.$evenement->getTypeSession().'&image=https://www.team-occitanie.fr'.$evenement->getVisuel().'',
+                [
+                    'headers' => [
+                        'Origin' => 'https://www.team-occitanie.fr'
+                    ],  
+                ]
             );
         
             $content2 = $response2->toArray();
@@ -109,7 +114,12 @@ class ApplicationController extends AbstractController
 
             $response = $httpClient->request(
                 'GET',
-                'https://bot.team-occitanie.fr/add-tache/query/?username='.$tache->getAuteur()->getUsername().'&map='.$tache->getMap().'&description='.$tache->getType().'&avatar='.$tache->getAuteur()->getAvatar().''
+                'https://bot.team-occitanie.fr/add-tache/query/?username='.$tache->getAuteur()->getUsername().'&map='.$tache->getMap().'&description='.$tache->getType().'&avatar='.$tache->getAuteur()->getAvatar().'',
+                [
+                    'headers' => [
+                        'Origin' => 'https://www.team-occitanie.fr'
+                    ],  
+                ]
             );
 
             $content = $response->toArray();
@@ -145,7 +155,12 @@ class ApplicationController extends AbstractController
 
         $httpClient->request(
             'GET',
-            'https://bot.team-occitanie.fr/remove-tache/query/?id='.$tache->getDiscordId().''
+            'https://bot.team-occitanie.fr/remove-tache/query/?id='.$tache->getDiscordId().'',
+            [
+                'headers' => [
+                    'Origin' => 'https://www.team-occitanie.fr'
+                ],  
+            ]
         );
 
         $entityManager->remove($tache);
@@ -191,7 +206,12 @@ class ApplicationController extends AbstractController
 
         $httpClient->request(
             'GET',
-            'https://bot.team-occitanie.fr/remove-evenement/query/?id='.$evenement->getDiscordId().''
+            'https://bot.team-occitanie.fr/remove-evenement/query/?id='.$evenement->getDiscordId().'',
+            [
+                'headers' => [
+                    'Origin' => 'https://www.team-occitanie.fr'
+                ],  
+            ]
         );
 
         $entityManager->remove($evenement);
