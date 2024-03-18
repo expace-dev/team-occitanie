@@ -320,7 +320,7 @@ class ApplicationController extends AbstractController
         return $this->redirectToRoute('app_taches_index', [], Response::HTTP_SEE_OTHER);
     }
     #[Route('/gestion/taches/{id}/edition', name: 'app_taches_edit', methods: ['GET', 'POST']), IsGranted('ROLE_USER')]
-    public function editTaches(Request $request, Taches $taches, EntityManagerInterface $entityManager): Response
+    public function editTaches(Request $request, Taches $taches, EntityManagerInterface $entityManager, HttpClientInterface $httpClient): Response
     {
 
         if ($this->getUser()->getRoles()[0] === 'ROLE_USER') {
@@ -338,6 +338,16 @@ class ApplicationController extends AbstractController
             $date = $form->get('delai')->getData();
             $dateCreate = new DateTime($date);
             $taches->setDelai($dateCreate);
+
+            $response = $httpClient->request(
+                'GET',
+                'https://bot.team-occitanie.fr/edit-tache/query/?username='.$taches->getAuteur()->getUsername().'&map='.$taches->getMap().'&description='.$taches->getType().'&avatar='.$taches->getAuteur()->getAvatar().'',
+                [
+                    'headers' => [
+                        'Origin' => 'https://www.team-occitanie.fr'
+                    ],  
+                ]
+            );
 
 
 
