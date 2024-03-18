@@ -137,7 +137,12 @@ class PhotosController extends AbstractController
 
             $response = $httpClient->request(
                 'GET',
-                'https://bot.team-occitanie.fr/post-photo/query/?username='.$photo->getUsers()->getUsername().'&avatar='.$photo->getUsers()->getAvatar().'&image=https://www.team-occitanie.fr'.$photo->getUrl().''
+                'https://bot.team-occitanie.fr/post-photo/query/?username='.$photo->getUsers()->getUsername().'&avatar='.$photo->getUsers()->getAvatar().'&image=https://www.team-occitanie.fr'.$photo->getUrl().'',
+                [
+                    'headers' => [
+                        
+                    ],  
+                ]
             );
             $content = $response->toArray();
 
