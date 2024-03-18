@@ -140,7 +140,7 @@ class PhotosController extends AbstractController
                 'https://bot.team-occitanie.fr/post-photo/query/?username='.$photo->getUsers()->getUsername().'&avatar='.$photo->getUsers()->getAvatar().'&image=https://www.team-occitanie.fr'.$photo->getUrl().'',
                 [
                     'headers' => [
-                        
+                        'Origin' => 'https://www.team-occitanie.fr'
                     ],  
                 ]
             );
