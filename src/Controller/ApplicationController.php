@@ -204,6 +204,8 @@ class ApplicationController extends AbstractController
             //unlink('/var/www/clients/client0/web2/web/public' . $evenement->getVisuel());
         }
 
+        
+
         $httpClient->request(
             'GET',
             'https://bot.team-occitanie.fr/remove-evenement/query/?id='.$evenement->getDiscordId().'',
@@ -222,7 +224,7 @@ class ApplicationController extends AbstractController
         return $this->redirectToRoute('app_evenements_index', [], Response::HTTP_SEE_OTHER);
     }
     #[Route('/gestion/evenements/{id}/edition', name: 'app_evenements_edit', methods: ['GET', 'POST']), IsGranted('ROLE_USER')]
-    public function editEvenements(Request $request, Evenements $evenement, EntityManagerInterface $entityManager): Response
+    public function editEvenements(Request $request, Evenements $evenement, EntityManagerInterface $entityManager, HttpClientInterface $httpClient): Response
     {
 
         if ($this->getUser()->getRoles()[0] === 'ROLE_USER') {
@@ -253,6 +255,20 @@ class ApplicationController extends AbstractController
                 // Puis on upload la nouvelle image et on ajoute cela à  l'article
                 $evenement->setVisuel('/images/blog/' .$this->uploadService->send($fichier, $directory));
             }
+
+
+
+            $timestamp = ($dateCreate)->getTimestamp();
+
+            $response2 = $httpClient->request(
+                'GET',
+                'https://bot.team-occitanie.fr/add-evenement/query/?username='.$evenement->getAuteur()->getUsername().'&date='.$timestamp.'&description='.$evenement->getDescription().'&avatar='.$evenement->getAuteur()->getAvatar().'&type='.$evenement->getTypeSession().'&image=https://www.team-occitanie.fr'.$evenement->getVisuel().'&id='.$evenement->getDiscordId().'',
+                [
+                    'headers' => [
+                        'Origin' => 'https://www.team-occitanie.fr'
+                    ],  
+                ]
+            );
 
             $this->addFlash('success', 'Votre evenement a bien été modifié');
 
