@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use DateTime;
+use DateTimeZone;
 use App\Entity\Taches;
 use App\Entity\Evenements;
 use App\Form\TachesFormType;
@@ -240,7 +241,8 @@ class ApplicationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $date = $form->get('dateEvents')->getData();
-            $dateCreate = new DateTime($date);
+            $dateCreate = new DateTime($date, new DateTimeZone('UTC'));
+            
             $evenement->setDateEvents($dateCreate);
 
 
