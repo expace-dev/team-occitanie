@@ -37,7 +37,7 @@
                                 {% else %}
                                     <a class="powerOn" href="{{ path('app_publi_activate', {'id': article.id}) }}"><i   class="fa fa-power-off" aria-hidden="true"></i></a>&nbsp;&nbsp;
                                 {% endif %}
-                                <a class="discord" href="https://bot.team-occitanie.fr/post-article/query/?title={{article.titre}}&url=https://www.team-occitanie.fr{{ path('app_blog_show', {'slug': article.slug}) }}&username={{article.auteur.username}}&avatar=https://www.team-occitanie.fr{{article.auteur.avatar}}&description={{article.introduction}}&image=https://www.team-occitanie.fr{{article.img}}"><i   class="fa-brands fa-discord" aria-hidden="true"></i></a>&nbsp;&nbsp;
+                                <a class="discord" href="https://bot.team-occitanie.fr/post-article/query/?title={{article.titre}}&url=https://www.team-occitanie.fr{{ path('app_blog_show', {'slug': article.slug}) }}&username={{article.auteur.username}}&avatar={{article.auteur.avatar}}&description={{article.introduction}}&image=https://www.team-occitanie.fr{{article.img}}"><i   class="fa-brands fa-discord" aria-hidden="true"></i></a>&nbsp;&nbsp;
                                 <a class="remove" href="{{ path('app_publi_delete', {'id': article.id}) }}"><i   class="fa fa-trash" aria-hidden="true"></i></a>
                             </td>
                         </tr>

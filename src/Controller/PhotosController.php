@@ -96,7 +96,12 @@ class PhotosController extends AbstractController
 
         $httpClient->request(
             'GET',
-            'https://bot.team-occitanie.fr/remove-photo/query/?id='.$photos->getDiscordId().''
+            'https://bot.team-occitanie.fr/remove-photo/query/?id='.$photos->getDiscordId().'',
+            [
+                'headers' => [
+                    'Origin' => 'https://www.team-occitanie.fr'
+                ],  
+            ]
         );
 
         unlink('/var/www/clients/client0/web2/web/public' . $photos->getUrl());
