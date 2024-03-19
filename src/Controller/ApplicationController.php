@@ -245,7 +245,7 @@ class ApplicationController extends AbstractController
             
             $evenement->setDateEvents($dateCreate);
 
-            dd($dateCreate);
+            
 
 
             // Si on réceptionne une image d'illustration
@@ -262,7 +262,8 @@ class ApplicationController extends AbstractController
 
 
 
-            $timestamp = ($dateCreate)->getTimestamp();
+            $timestamp = ($dateCreate)->getTimezone();
+            dd($timestamp);
 
             $response2 = $httpClient->request(
                 'GET',
