@@ -261,7 +261,9 @@ class ApplicationController extends AbstractController
                 // On récupère le répertoire de destination
                 $directory = 'events_directory';
                 // On supprime l'ancienne image d'illustration
-                //unlink($evenement->getVisuel());
+                if ($evenement->getVisuel()) {
+                    unlink('/var/www/clients/client0/web2/web/public' .$evenement->getVisuel());
+                }
                 // Puis on upload la nouvelle image et on ajoute cela à  l'article
                 $evenement->setVisuel('/images/evenements/' .$this->uploadService->send($fichier, $directory));
             }
