@@ -208,7 +208,7 @@ class ApplicationController extends AbstractController
         }
 
         if ($evenement->getVisuel()) {
-            //unlink('/var/www/clients/client0/web2/web/public' . $evenement->getVisuel());
+            unlink('/var/www/clients/client0/web2/web/public' . $evenement->getVisuel());
         }
 
         
