@@ -264,7 +264,7 @@ class ApplicationController extends AbstractController
 
             $response2 = $httpClient->request(
                 'GET',
-                'https://bot.team-occitanie.fr/edit-evenement/query/?username='.$evenement->getAuteur()->getUsername().'&date='.$timestamp.'&description='.$evenement->getDescription().'&avatar='.$evenement->getAuteur()->getAvatar().'&type='.$evenement->getTypeSession().'&image=https://www.team-occitanie.fr'.$evenement->getVisuel().'&id='.$evenement->getDiscordId().'',
+                'https://bot.team-occitanie.fr/edit-evenement/query/?username='.$evenement->getAuteur()->getUsername().'&date='.$timestamp.'&description='.$evenement->getDescription().'&avatar='.$evenement->getAuteur()->getAvatar().'&type='.$evenement->getTypeSession().'&image=https://www.team-occitanie.fr'.$evenement->getVisuel().'&id='.$evenement->getDiscordId().'&test='.$dateCreate.'',
                 [
                     'headers' => [
                         'Origin' => 'https://www.team-occitanie.fr'
