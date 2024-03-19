@@ -268,8 +268,13 @@ class ApplicationController extends AbstractController
             $heureFormat = $dateCreate->format('H:i');
             $dateEvents = ''.$dateFormat.' à '.$heureFormat.'';
 
+            $format = "l d M Y à H:i:s";
 
-            dd($dateCreate->format('U'));
+// Formatage en jour, mois, année, heure, minutes et secondes
+           $test = date($format, $timestamp); // 
+
+
+            dd($test);
 
 
             $response2 = $httpClient->request(
