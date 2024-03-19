@@ -263,7 +263,7 @@ class ApplicationController extends AbstractController
 
 
 
-            $timestamp = $dateCreate->format('u');
+            $timestamp = $dateCreate->format('U');
             $dateFormat = $dateCreate->format('l d F Y');
             $heureFormat = $dateCreate->format('H:i');
             $dateEvents = ''.$dateFormat.' à '.$heureFormat.'';
