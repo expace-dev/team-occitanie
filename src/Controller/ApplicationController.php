@@ -262,8 +262,8 @@ class ApplicationController extends AbstractController
 
 
 
-            $timestamp = ($dateCreate)->getTimezone();
-            dd($timestamp);
+            $timestamp = ($dateCreate)->getTimestamp();
+            dd($date);
 
             $response2 = $httpClient->request(
                 'GET',
