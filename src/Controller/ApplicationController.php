@@ -263,23 +263,11 @@ class ApplicationController extends AbstractController
 
 
 
-            $timestamp = $dateCreate->format('U');
-            $dateFormat = $dateCreate->format('l d F Y');
-            $heureFormat = $dateCreate->format('H:i');
-            $dateEvents = ''.$dateFormat.' à '.$heureFormat.'';
-
-            $format = "l d M Y à H:i:s";
-
-// Formatage en jour, mois, année, heure, minutes et secondes
-           $test = date($format, $timestamp); // 
-
-
-            dd($test);
-
+           
 
             $response2 = $httpClient->request(
                 'GET',
-                'https://bot.team-occitanie.fr/edit-evenement/query/?username='.$evenement->getAuteur()->getUsername().'&date='.$dateEvents.'&description='.$evenement->getDescription().'&avatar='.$evenement->getAuteur()->getAvatar().'&type='.$evenement->getTypeSession().'&image=https://www.team-occitanie.fr'.$evenement->getVisuel().'&id='.$evenement->getDiscordId().'',
+                'https://bot.team-occitanie.fr/edit-evenement/query/?username='.$evenement->getAuteur()->getUsername().'&date='.$date.'&description='.$evenement->getDescription().'&avatar='.$evenement->getAuteur()->getAvatar().'&type='.$evenement->getTypeSession().'&image=https://www.team-occitanie.fr'.$evenement->getVisuel().'&id='.$evenement->getDiscordId().'',
                 [
                     'headers' => [
                         'Origin' => 'https://www.team-occitanie.fr'
