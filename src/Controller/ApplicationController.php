@@ -269,7 +269,7 @@ class ApplicationController extends AbstractController
             $dateEvents = ''.$dateFormat.' à '.$heureFormat.'';
 
 
-            dd($timestamp);
+            dd($dateCreate->format('U'));
 
 
             $response2 = $httpClient->request(
