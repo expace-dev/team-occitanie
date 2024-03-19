@@ -65,7 +65,7 @@ class ApplicationController extends AbstractController
                 $visuel = 'https://www.team-occitanie.fr/'.$evenement->getVisuel().'';
             }
             else {
-                $visuel = 'https://www.team-occitanie.fr/images/evenementsno_visuel.png';
+                $visuel = 'https://www.team-occitanie.fr/images/evenements/no_visuel.png';
             }
             
             $response2 = $httpClient->request(
@@ -271,7 +271,7 @@ class ApplicationController extends AbstractController
                 $visuel = 'https://www.team-occitanie.fr/'.$evenement->getVisuel().'';
             }
             else {
-                $visuel = 'https://www.team-occitanie.fr/images/evenementsno_visuel.png';
+                $visuel = 'https://www.team-occitanie.fr/images/evenements/no_visuel.png';
             }
            
 
