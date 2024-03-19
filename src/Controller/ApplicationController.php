@@ -263,7 +263,7 @@ class ApplicationController extends AbstractController
                 // On supprime l'ancienne image d'illustration
                 //unlink($evenement->getVisuel());
                 // Puis on upload la nouvelle image et on ajoute cela à  l'article
-                $evenement->setVisuel('/images/blog/' .$this->uploadService->send($fichier, $directory));
+                $evenement->setVisuel('/images/evenements/' .$this->uploadService->send($fichier, $directory));
             }
 
 
