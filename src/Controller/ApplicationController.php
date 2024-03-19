@@ -241,9 +241,11 @@ class ApplicationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $date = $form->get('dateEvents')->getData();
-            $dateCreate = new DateTime($date, new DateTimeZone('UTC'));
+            $dateCreate = new DateTime($date);
             
             $evenement->setDateEvents($dateCreate);
+
+            dd($dateCreate);
 
 
             // Si on réceptionne une image d'illustration
