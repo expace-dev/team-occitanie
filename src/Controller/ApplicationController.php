@@ -263,11 +263,13 @@ class ApplicationController extends AbstractController
 
 
 
-
+            \DateTimeZone::EUROPE;
             $timestamp = ($dateCreate)->getTimestamp();
             $dateFormat = $dateCreate->format('l d F Y');
             $heureFormat = $dateCreate->format('H:i');
             $dateEvents = ''.$dateFormat.' à '.$heureFormat.'';
+
+            dd($timestamp);
 
 
             $response2 = $httpClient->request(
